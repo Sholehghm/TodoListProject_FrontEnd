@@ -10,13 +10,19 @@ function handleClick(event) {
 }
 
 export default function BasicBreadcrumb({path}) {
+  const style = {
+    "&:hover": {
+      color: "green",
+    },
+    color: "black"
+  };
   return (
     <div role="presentation" onClick={handleClick}>
-      <Breadcrumbs aria-label="breadcrumb"  separator={<NavigateNextIcon />}>
-        <Link underline="hover" color="inherit" href="/">
+      <Breadcrumbs className='bg-white' separator={<NavigateNextIcon />}>
+        <Link href="/" className='text-black !no-underline ' sx={style}>
           todo
         </Link>
-        <Typography sx={{ color: 'text.primary' }}>{path}</Typography>
+        <Typography sx={style}>{path}</Typography>
       </Breadcrumbs>
     </div>
   );
