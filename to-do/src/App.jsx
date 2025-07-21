@@ -1,10 +1,12 @@
-import BasicBreadcrumb from './components/breadcrumbs/BasicBreadCrumb'
+import React from 'react'
+import Home from './components/pages/Home'
+
 
 function App() {
 
   return (
     <>
-     <BasicBreadcrumb path="aref"/>
+    <Home/>
     </>
   )
 }
