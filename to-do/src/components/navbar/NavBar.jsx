@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Home', 'Sign in', 'Today tasks','Add task','Calendar'];
+const pages = ['Home', 'Sign in', 'Today tasks', 'Add task', 'Calendar'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -36,9 +36,22 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" className='!w-55 !bg-blue !text-black !h-screen flex-col justify-start items-start pt-6'>
-      {/* <Container className='!flex-row !justify-start !items-start '> */}
-        <Toolbar className='flex-col gap-7 items-'>
+    <AppBar position="static" className='sm:!w-55 bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
+      <Container className='!flex-row !justify-start !items-start '>
+        <Toolbar className='sm:flex-col '>
+          <Box className='sm:hidden'>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              className='p-0'
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
           <Typography
             variant="h6"
             noWrap
@@ -51,44 +64,32 @@ function ResponsiveAppBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+
           >
             todo
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
-       
-       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-       </IconButton>
-    
-   </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
             </IconButton>
+
           </Box>
-          
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, flexDirection:{md: 'column'} }}>
+
+          <Box className='max-sm:hidden sm:flex-col'>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', textAlign: 'left' }}
+                sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-         
+
         </Toolbar>
-      {/* </Container> */}
+      </Container>
     </AppBar>
   );
 }
