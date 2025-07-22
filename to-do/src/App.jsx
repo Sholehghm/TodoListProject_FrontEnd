@@ -1,13 +1,12 @@
-import AppBar from '@mui/material/AppBar'
-import BasicBreadcrumb from './components/breadcrumbs/BasicBreadCrumb'
-import ResponsiveAppBar from './components/navbar/NavBar'
+import React from 'react'
+import Home from './components/pages/Home'
 
 
 function App() {
 
   return (
     <>
-     <ResponsiveAppBar/>
+    <Home/>
     </>
   )
 }
