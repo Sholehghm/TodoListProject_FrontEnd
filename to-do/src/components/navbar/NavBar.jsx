@@ -14,11 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['Home', 'Sign in', 'Today tasks', 'Add task', 'Calendar'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,14 +30,11 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <AppBar position="static" className='sm:!w-55 bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
-      <Container className='!flex-row !justify-start !items-start '>
-        <Toolbar className='sm:flex-col '>
+      <Container className='' >
+        <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 '>
           <Box className='sm:hidden'>
             <IconButton
               size="large"
@@ -68,9 +64,9 @@ function ResponsiveAppBar() {
           >
             todo
           </Typography>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box >
 
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <IconButton onClick={handleOpenUserMenu} className='text-left'>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
             </IconButton>
 
