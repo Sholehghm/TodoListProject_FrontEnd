@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-export default function SideBar({state,toggleDrawer}) {
+export default function SideBar({pages,state,toggleDrawer}) {
   const list = (anchor) => (
     <Box
       role="presentation"
@@ -14,7 +14,7 @@ export default function SideBar({state,toggleDrawer}) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Home', 'Registration', 'Today tasks', 'Add task', 'Calendar'].map((text) => (
+        {pages.map((text) => (
           <ListItem key={text}>
             <ListItemButton href={text}>
               <ListItemText primary={text} />

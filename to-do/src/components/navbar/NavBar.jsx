@@ -15,22 +15,12 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SideBar from '../sidebar/SideBar';
 import {Link} from 'react-router-dom';
 
-const pages = ['Home', 'Sign in', 'Today tasks', 'Add task', 'Calendar'];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [pages, setPages] = React.useState(['Home', 'Registration', 'Today tasks', 'Add task', 'Calendar']);
 
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  
   const [state, setState] = React.useState({
     left: false,
   });
@@ -88,10 +78,9 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
               >
-                <Link to={page}>
+                <Link to={`/${page}`}>
                 {page}
                 </Link>
                 
@@ -101,7 +90,7 @@ function ResponsiveAppBar() {
 
         </Toolbar>
       </Container>
-      <SideBar state={state} setState={setState} toggleDrawer={toggleDrawer}/>
+      <SideBar pages={pages} state={state} setState={setState} toggleDrawer={toggleDrawer}/>
     </AppBar>
   );
 }
