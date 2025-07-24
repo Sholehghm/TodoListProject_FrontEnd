@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import SideBar from '../sidebar/SideBar';
+import {Link} from 'react-router-dom';
 
 const pages = ['Home', 'Sign in', 'Today tasks', 'Add task', 'Calendar'];
 
@@ -29,10 +31,20 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const [state, setState] = React.useState({
+    left: false,
+  });
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
 
   return (
-    <AppBar position="static" className='sm:!w-55 bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
+    <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
       <Container className='' >
         <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 '>
           <Box className='sm:hidden'>
@@ -41,7 +53,7 @@ function ResponsiveAppBar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={toggleDrawer('left', true)}
               color="inherit"
               className='p-0'
             >
@@ -52,7 +64,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/home"
             sx={{
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -66,7 +78,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box >
 
-            <IconButton onClick={handleOpenUserMenu} className='text-left'>
+            <IconButton  className='text-left'>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
             </IconButton>
 
@@ -79,13 +91,17 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
               >
+                <Link to={page}>
                 {page}
+                </Link>
+                
               </Button>
             ))}
           </Box>
 
         </Toolbar>
       </Container>
+      <SideBar state={state} setState={setState} toggleDrawer={toggleDrawer}/>
     </AppBar>
   );
 }
