@@ -13,6 +13,7 @@ function App() {
         <Route path='/home' element={<Home tasks={tasks}/>}/>
         <Route path='/registration' element={<Home tasks={tasks}/>}/>
         <Route path='/today tasks' element={<Home tasks={tasks}/>}/>
+        <Route path='/Add task' element={<Home tasks={tasks}/>}/>
         <Route path='/calendar' element={<Home tasks={tasks}/>}/>
       </Routes>
     </Router>
