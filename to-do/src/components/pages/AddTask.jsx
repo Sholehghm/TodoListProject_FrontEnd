@@ -2,19 +2,15 @@ import React from "react";
 import ResponsiveAppBar from "../navbar/NavBar";
 import AddEditForm from "../form/AddEditForm";
 import TaskList from "../list/TaskList";
-import EditDialog from "../form/EditDialog";
 
 
-export default function Home(){
+export default function AddTask(){
+
 return(
-    <>
     <div className='sm:flex sm:flex-row '>
         <ResponsiveAppBar/>
-        <TaskList/>
-       
+        <AddEditForm mode='add'/>
+     
     </div>
-        <EditDialog/>
-    </>
-    
 )
 };
