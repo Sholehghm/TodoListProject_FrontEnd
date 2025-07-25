@@ -9,8 +9,6 @@ return(
     <div className='sm:flex sm:flex-row '>
         <ResponsiveAppBar/>
         <TaskList tasks={tasks}/>
-        {/* <AddEditForm mode='add' /> */}
-     
     </div>
 )
 };

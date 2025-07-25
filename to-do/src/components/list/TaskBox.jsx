@@ -8,7 +8,7 @@ import Task from "../task/Task";
 export default function TaskBox({status, tasks}) {
     return (
         <>
-            <Box className='flex flex-col gap-4 shadow-2xl p-2 bg-gray-300'>
+            <Box className='flex flex-col h-fit gap-4 shadow-2xl p-2 bg-gray-300'>
                 <Box className='flex flex-row justify-between '>
                     <Typography>{status}</Typography>
                     <KeyboardArrowDownIcon />
