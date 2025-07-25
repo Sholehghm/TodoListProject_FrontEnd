@@ -6,10 +6,12 @@ import Typography from "@mui/material/Typography";
 import BasicSelect from "./BasicSelect";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import Box from "@mui/material/Box";
 
 export default function AddEditForm({ mode = 'add' }) {
     return (
-        <div className=" flex items-center justify-center ">
+        <Box className='flex-1'>
+            <div className="flex h-screen items-center justify-center">
             <form className='w-[50%] flex flex-col gap-2'>
                 <Typography variant="body-1" className="font-bold">
                     {mode === 'add' ? 'Add a new task' : 'Edit task'}
@@ -34,6 +36,8 @@ export default function AddEditForm({ mode = 'add' }) {
 
 
         </div>
+        </Box>
+        
     )
 };
 
