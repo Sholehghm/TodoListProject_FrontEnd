@@ -9,12 +9,16 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import {v4 as uuid4} from "uuid";
 import dayjs from 'dayjs';
+import { UseTask } from "../../context/TaskContext";
+import { UseEditDialog } from "../../context/EditDialogContext";
 
-export default function AddEditForm({ mode = 'add',task,tasks,setTasks}) {
-    const[title,setTitle]=useState('');
-    const[description,setDescription]=useState('');
+export default function AddEditForm({ mode = 'add'}) {
+    const{currentTask,tasks,setTasks}=UseTask();
+    const{handleClose}=UseEditDialog();
+    const[title,setTitle]=useState(currentTask?.title??'');
+    const[description,setDescription]=useState(currentTask?.description??'');
     const[date,setDate]=useState(null);
-    const[status,setStatus]=useState('');
+    const[status,setStatus]=useState(currentTask?.status??'');
 
     const addTask = () =>{
         const newTask = {
@@ -26,11 +30,17 @@ export default function AddEditForm({ mode = 'add',task,tasks,setTasks}) {
         }
     setTasks([...tasks, newTask]);
     };
-    const editTask = () =>{};
+    const editTask = () =>{
+        const clonedTasks =[...tasks];
+        const index = clonedTasks.findIndex((item)=>item.id === currentTask.id);
+        clonedTasks[index] = {...clonedTasks[index],title,description,date: date ? date.format('YYYY-MM-DD') : '',status};
+        setTasks(clonedTasks);
+        handleClose();
+    };
     return (
         <Box className='flex-1'>
-            <div className="flex h-screen items-center justify-center">
-            <form className='w-[50%] flex flex-col gap-2'>
+            <div className="flex ${mode=='add'?'h-screen'} items-center justify-center">
+            <form className={`${mode=='add'?'w-[50%]':'w-screen'} flex flex-col gap-2 p-4`}>
                 <Typography variant="body-1" className="font-bold">
                     {mode === 'add' ? 'Add a new task' : 'Edit task'}
                 </Typography>

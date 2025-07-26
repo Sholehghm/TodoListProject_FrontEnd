@@ -5,14 +5,14 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Task from "../task/Task";
 import TaskBox from "./TaskBox";
 
-export default function TaskList({tasks}){
+export default function TaskList(){
     return(
         <>
-        <Box className='flex-1 '>
-        <Box className='flex flex-row h-screen justify-around flex-wrap mt-20'>
-            <TaskBox status='to do' tasks={tasks}/>
-            <TaskBox status='in progress' tasks={tasks}/>
-            <TaskBox status='completed' tasks={tasks}/>
+        <Box className='flex-1 pt-20 '>
+        <Box className='flex flex-row justify-around flex-wrap'>
+            <TaskBox status='to do' />
+            <TaskBox status='in progress'/>
+            <TaskBox status='completed'/>
         </Box>
         </Box>
         
