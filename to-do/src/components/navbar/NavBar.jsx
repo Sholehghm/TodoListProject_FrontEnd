@@ -17,7 +17,7 @@ import {Link} from 'react-router-dom';
 
 
 function ResponsiveAppBar() {
-  const [pages, setPages] = React.useState(['Home', 'Registration', 'Today tasks', 'Add task', 'Calendar']);
+  const [pages, setPages] = React.useState(['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task']);
 
 
   
