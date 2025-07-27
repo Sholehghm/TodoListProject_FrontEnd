@@ -8,7 +8,6 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import {v4 as uuid4} from "uuid";
-import dayjs from 'dayjs';
 import { UseTask } from "../../context/TaskContext";
 import { UseEditDialog } from "../../context/EditDialogContext";
 
@@ -25,7 +24,7 @@ export default function AddEditForm({ mode = 'add'}) {
             id: uuid4(),
             title,
             description,
-            date: date ? date.format('YYYY-MM-DD') : '',
+            date: date ? date.format('YYYY/MM/DD') : '',
             status
         }
     setTasks([...tasks, newTask]);
@@ -33,7 +32,7 @@ export default function AddEditForm({ mode = 'add'}) {
     const editTask = () =>{
         const clonedTasks =[...tasks];
         const index = clonedTasks.findIndex((item)=>item.id === currentTask.id);
-        clonedTasks[index] = {...clonedTasks[index],title,description,date: date ? date.format('YYYY-MM-DD') : '',status};
+        clonedTasks[index] = {...clonedTasks[index],title,description,date: date ? date.format('YYYY/MM/DD') : '',status};
         setTasks(clonedTasks);
         handleClose();
     };
