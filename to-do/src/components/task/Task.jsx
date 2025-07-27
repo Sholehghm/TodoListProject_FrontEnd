@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { UseEditDialog } from '../../context/EditDialogContext';
 import { UseTask } from '../../context/TaskContext';
 
-export default function Task({task}){
+export default function Task({task,dropDown}){
 const{setCurrentTask,tasks,setTasks}=UseTask();
 const{handleOpen}=UseEditDialog();
 const{title,description,date,status}=task;
@@ -18,7 +18,7 @@ const handleDelete = () => {
     setTasks(deletedTasks);
 } 
 return(
-    <>
+    <div className={dropDown===true?'flex justify-center':'hidden'}>
     <Tooltip title={task?.description}>
     <Box className='bg-white m-2 w-[200px] h-[200px] rounded-md shadow-md flex flex-col justify-between p-2'>
         <Box className='flex justify-between items-center'>
@@ -40,6 +40,6 @@ return(
     </Box>
     </Tooltip>
     
-    </>
+    </div>
 )
 };
