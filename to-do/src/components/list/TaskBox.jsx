@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Task from "../task/Task";
 import { UseTask } from "../../context/TaskContext";
+import { UseSearchTask } from "../../context/SearchTaskContext";
 
 
-export default function TaskBox({status}) {
+export default function TaskBox({status,date}) {
     const{tasks}=UseTask();
+    const{searchedTitle,setSearchedTitle,searchedDate,setSearchedDate}=UseSearchTask();
+    useEffect(()=>{
+        setSearchedTitle('');
+        setSearchedDate(null);
+    },[TaskBox]);
     const[dropDown,setDropDown]=useState(true);
     const handleDropDown = () =>{
         dropDown===true?setDropDown(false):setDropDown(true);
@@ -22,7 +28,10 @@ export default function TaskBox({status}) {
                     <KeyboardArrowUpIcon onClick={handleDropDown} className={dropDown===true?'!hidden':'!block'}/>
 
                 </Box>
-                {tasks.map(task => (
+                {date? 
+                tasks.map(task => (
+                    task?.status == status && task?.date===date ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
+                )):tasks.map(task => (
                     task?.status == status ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
                 ))}
             </Box>
