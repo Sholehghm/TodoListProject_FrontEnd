@@ -12,7 +12,7 @@ import SearchTasks from './components/pages/SearchTask';
 function App() {
 
   return (
-    <>
+    <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
       <TaskProvider>
         <EditProvider>
         <SearchTaskProvider>
@@ -31,7 +31,7 @@ function App() {
       </TaskProvider>
 
 
-    </>
+    </div>
   )
 }
 
