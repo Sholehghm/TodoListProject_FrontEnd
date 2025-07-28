@@ -20,7 +20,7 @@ const handleDelete = () => {
 return(
     <div className={dropDown===true?'flex justify-center':'hidden'}>
     <Tooltip title={task?.description}>
-    <Box className='bg-white m-2 w-[200px] h-[200px] rounded-md shadow-md flex flex-col justify-between p-2'>
+    <Box className='bg-white m-2 w-[250px] h-[250px] rounded-md shadow-md flex flex-col justify-between p-2'>
         <Box className='flex justify-between items-center'>
         <Typography className='!font-bold p-2'>{title}</Typography>
         <EditNoteIcon onClick={()=>{
