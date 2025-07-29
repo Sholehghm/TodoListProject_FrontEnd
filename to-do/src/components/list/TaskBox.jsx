@@ -21,8 +21,8 @@ export default function TaskBox({status,date}) {
     };
         return (
         <>
-            <Box className={`flex flex-col w-[300px] h-fit gap-4 shadow-2xl p-2 ${status==='to do'? 'bg-blue-400':status==='in progress'? 'bg-red-400':'bg-green-500'}`}>
-                <Box className='flex flex-row justify-between '>
+            <Box className={`flex flex-col w-[300px] h-fit gap-4 shadow-2xl rounded-2xl bg-[#d6ccb1] p-2`}>
+                <Box className='flex flex-row justify-between   '>
                     <Typography>{status}</Typography>
                     <KeyboardArrowDownIcon onClick={handleDropDown} className={dropDown===true?'!block':'!hidden'} />
                     <KeyboardArrowUpIcon onClick={handleDropDown} className={dropDown===true?'!hidden':'!block'}/>
