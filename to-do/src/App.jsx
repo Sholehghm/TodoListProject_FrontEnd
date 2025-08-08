@@ -22,9 +22,9 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/today tasks' element={<TodayTasks />} />
-                <Route path='/Add task' element={<AddTask />} />
-                <Route path='/search task' element={<SearchTasks />} />
+                <Route path='/today-tasks' element={<TodayTasks />} />
+                <Route path='/Add-task' element={<AddTask />} />
+                <Route path='/search-task' element={<SearchTasks />} />
               </Routes>
             </Router>
             </SearchTaskProvider>

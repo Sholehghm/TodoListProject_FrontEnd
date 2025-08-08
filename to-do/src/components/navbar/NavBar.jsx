@@ -17,8 +17,8 @@ import {Link} from 'react-router-dom';
 
 
 function ResponsiveAppBar() {
-  const [pages, setPages] = React.useState(['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task']);
-
+  const pages = ['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task'];
+  const routes = ['Home', 'registration', 'today-tasks', 'add-task', 'search-task'];
 
   
   const [state, setState] = React.useState({
@@ -75,12 +75,12 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box className='max-sm:hidden sm:flex-col'>
-            {pages.map((page) => (
+            {pages.map((page,index) => (
               <Button
                 key={page}
                 sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
               >
-                <Link to={`/${page}`}>
+                <Link to={`/${routes[index]}`}>
                 {page}
                 </Link>
                 
