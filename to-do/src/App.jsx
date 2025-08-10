@@ -9,6 +9,7 @@ import { SearchTaskProvider } from './context/SearchTaskContext';
 import TodayTasks from './components/pages/TodayTasks';
 import SearchTasks from './components/pages/SearchTask';
 import RegisterForm from './components/pages/Registration';
+import LoginForm from './components/pages/Login';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
+                <Route path='/login' element={<LoginForm />} />
                 <Route path='/today-tasks' element={<TodayTasks />} />
                 <Route path='/Add-task' element={<AddTask />} />
                 <Route path='/search-task' element={<SearchTasks />} />
