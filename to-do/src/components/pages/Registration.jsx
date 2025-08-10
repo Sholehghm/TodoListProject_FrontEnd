@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
+import { register } from "../../utils/authAPI";
 
 const RegisterForm = () => {
-    const [mode, setMode] = useState('sign in');
-    const handleMode = (currentMode) => { currentMode === 'sign in' ? setMode('sign up') : setMode('sign in') }
+    const [email, setEmail] =useState('');
+    const [password, setPssword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+   
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: Handle form submission logic
+      
     };
 
     return (
@@ -19,25 +23,9 @@ const RegisterForm = () => {
                     <div className="flex h-screen justify-center items-center">
                         <div className="bg-white flex flex-col justify-center items-center rounded-2xl shadow-lg p-8 w-full max-w-md">
                             <Typography variant="h5" className="!mb-6 text-center font-semibold">
-                                {mode === 'sign in' ? 'Welcome back please log in' : 'please create an account'}
+                               please create an account
                             </Typography>
                             <form onSubmit={handleSubmit} className=" flex flex-col gap-4 space-y-4">
-                                <Box display="flex" gap={2}>
-                                    <TextField
-                                        label="First Name"
-                                        variant="outlined"
-                                        fullWidth
-                                        required
-                                        className={mode === 'sign in' ? '!hidden' : ''}
-                                    />
-                                    <TextField
-                                        label="Last Name"
-                                        variant="outlined"
-                                        fullWidth
-                                        required
-                                        className={mode === 'sign in' ? '!hidden' : ''}
-                                    />
-                                </Box>
                                 <Box >
                                 <TextField
                                     label="Email"
@@ -46,6 +34,8 @@ const RegisterForm = () => {
                                     fullWidth
                                     required
                                     className="!mb-2"
+                                    value={email}
+                                    onChange={(e)=>setEmail(e.target.value)}
                                 />
                                 <TextField
                                     label="Password"
@@ -54,6 +44,8 @@ const RegisterForm = () => {
                                     fullWidth
                                     required
                                     className="!mb-2"
+                                    value={password}
+                                    onChange={(e)=>setPssword(e.target.value)}
                                 />
                                 <TextField
                                     label="Confirm Password"
@@ -61,23 +53,23 @@ const RegisterForm = () => {
                                     variant="outlined"
                                     fullWidth
                                     required
-                                    className={mode === 'sign in' ? '!hidden' : ''}
+                                    value={confirmPassword}
+                                    onChange={(e)=>setConfirmPassword(e.target.value)}
                                 />
                                 </Box>
+                                <Typography variant="body2" color="red" >confirm Password is not correct</Typography>
                                 <Button
                                     type="submit"
                                     variant="contained"
                                     color="primary"
                                     fullWidth
                                 >
-                                    {mode === 'sign in' ? 'Log in' : 'Sign up'}
+                                   Sign up
                                 </Button>
                             </form>
                             <Typography variant="body2" className="mt-4 text-gray-600">
-                                {mode === 'sign in' ? 'Don\'t have an accont?' : 'Already have an account'}
-                                <a onClick={() => handleMode(mode)} className="mt-4 text-center text-blue-500">
-                                    {mode === 'sign in' ? 'Sign Up' : 'Sign In'}
-                                </a>
+                                Already have an account?
+                            <Link to='/login' className="text-blue-600"> login</Link>
                             </Typography>
                         </div>
                     </div>
