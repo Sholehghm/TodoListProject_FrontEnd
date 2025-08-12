@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Home from './components/pages/Home'
 import data from './mockdata/MockData.json'
 import { BrowserRouter as Router, Routes, Route } from "react-router";
@@ -12,6 +12,11 @@ import RegisterForm from './components/pages/Registration';
 import LoginForm from './components/pages/Login';
 
 function App() {
+  const [logedIn, setLogedIn] = useState(false);
+
+  useEffect(()=>{
+    localStorage.getItem('authToken')
+  })
 
   return (
     <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
@@ -23,7 +28,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/login' element={<LoginForm />} />
+                <Route path='/login' element={<LoginForm logedIn={logedIn} setLogedIn={setLogedIn} />} />
                 <Route path='/today-tasks' element={<TodayTasks />} />
                 <Route path='/Add-task' element={<AddTask />} />
                 <Route path='/search-task' element={<SearchTasks />} />

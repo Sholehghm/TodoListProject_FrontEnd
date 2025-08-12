@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
-import { register } from "../../utils/authAPI";
+import { login} from "../../utils/authAPI";
+import Dashbord from "../dashbord/Dashbord";
 
-const LoginForm = () => {
+const LoginForm = ({logedIn,setLogedIn}) => {
     const [email, setEmail] =useState('');
     const [password, setPssword] = useState('');
-   
-    const handleSubmit = (e) => {
+    const [logInError,setLogInError] = useState('');
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        
+        try {
+            const token =await login(email,password);
+            localStorage.setItem('authToken', token.Token);
+            setLogInError('');
+            setLogedIn(true);
+        } catch (error) {
+            console.log(error.response.data.error);
+            setLogInError(error.response.data.error);
+        }
     };
+
+    if(logedIn){
+        return (
+            <div>
+                <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn}></Dashbord>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -47,7 +64,7 @@ const LoginForm = () => {
                                     onChange={(e)=>setPssword(e.target.value)}
                                 />
                                 </Box>
-                                <Typography variant="body2" color="red" >Email or Password is not correct</Typography>
+                                <Typography variant="body2" color="red" >{logInError}</Typography>
                                 <Button
                                     type="submit"
                                     variant="contained"
