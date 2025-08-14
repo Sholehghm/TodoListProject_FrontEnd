@@ -6,11 +6,25 @@ import { register } from "../../utils/authAPI";
 
 const RegisterForm = () => {
     const [email, setEmail] =useState('');
-    const [password, setPssword] = useState('');
+    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-   
-    const handleSubmit = (e) => {
+    const [registerError, setRegisterError] = useState('');
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        if(password !== confirmPassword){
+            setRegisterError("confirm password is not correct!")
+            throw new Error("confirm password is not correct!")}; 
+        try { 
+            const newUser = await register(email,password);
+            console.log(newUser);
+            setEmail('');
+            setPassword('');
+            window.location.href = '/login';
+        } catch (error) {
+            console.log(error);
+           setRegisterError(error.response.data.error); 
+        }
       
     };
 
@@ -45,7 +59,7 @@ const RegisterForm = () => {
                                     required
                                     className="!mb-2"
                                     value={password}
-                                    onChange={(e)=>setPssword(e.target.value)}
+                                    onChange={(e)=>setPassword(e.target.value)}
                                 />
                                 <TextField
                                     label="Confirm Password"
@@ -57,7 +71,7 @@ const RegisterForm = () => {
                                     onChange={(e)=>setConfirmPassword(e.target.value)}
                                 />
                                 </Box>
-                                <Typography variant="body2" color="red" >confirm Password is not correct</Typography>
+                                <Typography variant="body2" color="red" >{registerError}</Typography>
                                 <Button
                                     type="submit"
                                     variant="contained"
