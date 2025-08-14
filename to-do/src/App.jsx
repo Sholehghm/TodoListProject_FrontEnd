@@ -15,7 +15,10 @@ function App() {
   const [logedIn, setLogedIn] = useState(false);
 
   useEffect(()=>{
-    localStorage.getItem('authToken')
+    const authToken = localStorage.getItem('authToken');
+    if(authToken){
+      setLogedIn(true);
+    }
   })
 
   return (

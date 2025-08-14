@@ -10,9 +10,9 @@ export default function Dashbord ({email,setEmail,setPassword,setLogedIn}){
     };
 
     return (
-        <div>
-            <Typography>{email}</Typography>
-            <Button onClick={logOut}>log out</Button>
+        <div className="flex flex-col gap-4">
+            <Typography variant="h5">{email}</Typography>
+            <Button variant="contained"  onClick={logOut}>log out</Button>
         </div>
     )
 }
