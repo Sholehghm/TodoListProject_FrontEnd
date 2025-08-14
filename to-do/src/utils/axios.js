@@ -22,7 +22,8 @@ API.interceptors.response.use(
     (response) => response.data,
     (error) => {
         if(error.response?.status === 401){
-            window.location.href = '/registration';
+            localStorage.removeItem('authToken');
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
