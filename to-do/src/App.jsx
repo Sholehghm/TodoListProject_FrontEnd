@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Home from './components/pages/Home'
-import data from './mockdata/MockData.json'
+import Home from './components/routes/Home'
 import { BrowserRouter as Router, Routes, Route } from "react-router";
-import AddTask from './components/pages/AddTask';
+import AddTask from './components/routes/AddTask';
 import { EditProvider } from './context/EditDialogContext';
 import { TaskProvider } from './context/TaskContext';
 import { SearchTaskProvider } from './context/SearchTaskContext';
-import TodayTasks from './components/pages/TodayTasks';
-import SearchTasks from './components/pages/SearchTask';
-import RegisterForm from './components/pages/Registration';
-import LoginForm from './components/pages/Login';
+import TodayTasks from './components/routes/TodayTasks';
+import SearchTasks from './components/routes/SearchTask';
+import RegisterForm from './components/routes/Registration';
+import LoginForm from './components/routes/Login';
 
 function App() {
   const [logedIn, setLogedIn] = useState(false);
