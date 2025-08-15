@@ -15,7 +15,7 @@ export default function SearchTasks() {
                 <Box className='w-full mt-20'>
                 <BasicDatePicker value={searchedDate} onChange={setSearchedDate} />
                 <SearchTaskProvider>
-                    <TaskList date={searchedDate ? searchedDate.format('YYYY/MM/DD'):''} />
+                    <TaskList date={searchedDate ? searchedDate.format('YYYY-MM-DD'):''} />
                 </SearchTaskProvider>
                 </Box>
             </div>

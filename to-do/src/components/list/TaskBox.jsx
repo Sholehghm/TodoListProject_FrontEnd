@@ -6,16 +6,20 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Task from "../task/Task";
 import { UseTask } from "../../context/TaskContext";
 import { UseSearchTask } from "../../context/SearchTaskContext";
+import { getUserTasks } from "../../utils/taskAPI";
 
 
 export default function TaskBox({status,date}) {
     const{tasks}=UseTask();
+    console.log(tasks);
     const{searchedTitle,setSearchedTitle,searchedDate,setSearchedDate}=UseSearchTask();
     useEffect(()=>{
         setSearchedTitle('');
         setSearchedDate(null);
-    },[TaskBox]);
+    },[]);
+
     const[dropDown,setDropDown]=useState(true);
+
     const handleDropDown = () =>{
         dropDown===true?setDropDown(false):setDropDown(true);
     };
@@ -30,7 +34,7 @@ export default function TaskBox({status,date}) {
                 </Box>
                 {date? 
                 tasks.map(task => (
-                    task?.status == status && task?.date===date ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
+                    task?.status == status && task?.dueDate===date ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
                 )):tasks.map(task => (
                     task?.status == status ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
                 ))}

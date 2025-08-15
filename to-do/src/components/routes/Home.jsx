@@ -12,8 +12,6 @@ export default function Home() {
             <div className='sm:flex sm:flex-row '>
                 <ResponsiveAppBar />
                     <TaskList />
-
-
             </div>
             <EditDialog />
         </>
