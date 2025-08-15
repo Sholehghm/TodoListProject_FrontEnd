@@ -9,3 +9,12 @@ export const getUserTasks = async() => {
         return Promise.reject(error);
     }
 };
+
+export const addNewTask = async(NewTask) => {
+    try {
+        const addTask = await API.post('/tasks',{title: NewTask.title, description: NewTask.description, dueDate: NewTask.dueDate, status: NewTask.status});
+        
+    } catch (error) {
+        
+    }
+}

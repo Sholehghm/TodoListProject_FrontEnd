@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import {v4 as uuid4} from "uuid";
 import { UseTask } from "../../context/TaskContext";
 import { UseEditDialog } from "../../context/EditDialogContext";
+import { addNewTask } from "../../utils/taskAPI";
 
 export default function AddEditForm({ mode = 'add'}) {
     const{currentTask,tasks,setTasks}=UseTask();
@@ -21,13 +22,12 @@ export default function AddEditForm({ mode = 'add'}) {
 
     const addTask = () =>{
         const newTask = {
-            id: uuid4(),
             title,
             description,
-            date: date ? date.format('YYYY/MM/DD') : '',
+            dueDate: date ? date.format('YYYY-MM-DD') : '',
             status
         }
-    setTasks([...tasks, newTask]);
+    const callAddTask = addNewTask(newTask); 
     };
     const editTask = () =>{
         const clonedTasks =[...tasks];
