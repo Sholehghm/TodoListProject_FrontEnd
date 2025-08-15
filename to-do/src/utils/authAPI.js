@@ -24,17 +24,13 @@ export const login =async (email,password) => {
 };
 
 export const logedInCheck =async () => {
-    const token = localStorage.getItem('authToken');
-    if(token){
+
         try {
-            const UserEmail = await API.post('/get_user',{headers:{
-                'Authorization': 'Bearer ' + token
-              }});
+            const UserEmail = await API.get('/get_user');
             console.log(UserEmail);
             return UserEmail;
             } catch (error) {
                 return Promise.reject(error);
             }
-    } 
-     
+            
 };
