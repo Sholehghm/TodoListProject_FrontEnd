@@ -22,14 +22,19 @@ const LoginForm = ({ logedIn, setLogedIn }) => {
             const userEmail = await logedInCheck();
             console.log(userEmail);
             setEmail(userEmail);
-        } catch (error) {
-            console.log(error);
-            setLogedIn(false);
-        }
+           
+            } catch (error) {
+              console.log(error);
+              setLogedIn(false);
+            }
 
       };
-      checklogedIn(); 
-    },[])
+
+      if(logedIn){
+        checklogedIn(); 
+      }
+     
+    },[setLogedIn])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

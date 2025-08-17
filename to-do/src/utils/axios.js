@@ -21,9 +21,11 @@ API.interceptors.request.use(
 API.interceptors.response.use(
     (response) => response.data,
     (error) => {
-        if(error.response?.status === 401){
+        if (error.response?.status === 401) {
             localStorage.removeItem('authToken');
-            window.location.href = '/login';
+            if (window.location.pathname !== '/login') {
+                window.location.href = '/login';
+            }
         }
         return Promise.reject(error);
     }
