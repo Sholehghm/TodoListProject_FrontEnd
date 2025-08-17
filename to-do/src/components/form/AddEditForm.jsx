@@ -7,34 +7,48 @@ import BasicSelect from "./BasicSelect";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
-import {v4 as uuid4} from "uuid";
 import { UseTask } from "../../context/TaskContext";
 import { UseEditDialog } from "../../context/EditDialogContext";
-import { addNewTask } from "../../utils/taskAPI";
+import { addNewTask, editExistedTask } from "../../utils/taskAPI";
+import dayjs from "dayjs";
 
 export default function AddEditForm({ mode = 'add'}) {
-    const{currentTask,tasks,setTasks}=UseTask();
+    const{currentTask,tasks,setTasks,getTasks}=UseTask();
     const{handleClose}=UseEditDialog();
     const[title,setTitle]=useState(currentTask?.title??'');
     const[description,setDescription]=useState(currentTask?.description??'');
-    const[date,setDate]=useState(null);
+    const[date,setDate]=useState(currentTask.dueDate ? dayjs(currentTask.dueDate) : null);
     const[status,setStatus]=useState(currentTask?.status??'');
 
-    const addTask = () =>{
+    const addTask = async () =>{
         const newTask = {
             title,
             description,
             dueDate: date ? date.format('YYYY-MM-DD') : '',
             status
         }
-    const callAddTask = addNewTask(newTask); 
+        try {
+            const callAddTask = await addNewTask(newTask); 
+        } catch (error) {
+           console.log(error); 
+        }
     };
-    const editTask = () =>{
-        const clonedTasks =[...tasks];
-        const index = clonedTasks.findIndex((item)=>item.id === currentTask.id);
-        clonedTasks[index] = {...clonedTasks[index],title,description,date: date ? date.format('YYYY/MM/DD') : '',status};
-        setTasks(clonedTasks);
-        handleClose();
+    const editTask = async () =>{
+        const editedTask = {
+            id: currentTask.id,
+            title,
+            description,
+            dueDate: date ? date.format('YYYY-MM-DD') : '',
+            status
+        }
+        
+        try {
+            const callEditTask = await editExistedTask(editedTask);
+            await getTasks();
+            handleClose();
+        } catch (error) {
+           console.log(error); 
+        }
     };
     return (
         <Box className='flex-1'>

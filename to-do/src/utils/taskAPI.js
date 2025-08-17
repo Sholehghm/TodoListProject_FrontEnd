@@ -15,6 +15,15 @@ export const addNewTask = async(NewTask) => {
         const addTask = await API.post('/tasks',{title: NewTask.title, description: NewTask.description, dueDate: NewTask.dueDate, status: NewTask.status});
         
     } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export const editExistedTask = async(task) => {
+    try {
+        const editedTask = await API.put(`/tasks/${task.id}`,{title: task.title, description: task.description, dueDate: task.dueDate, status: task.status});
         
+    } catch (error) {
+        return Promise.reject(error);
     }
 }
