@@ -10,7 +10,7 @@ import { UseTask } from '../../context/TaskContext';
 export default function Task({task,dropDown}){
 const{setCurrentTask,tasks,setTasks}=UseTask();
 const{handleOpen}=UseEditDialog();
-const{title,description,dueDate,status}=task;
+const{title,description,dueDate,status} = task;
 
 const handleDelete = () => {
     const clonedTasks = [...tasks];
@@ -30,7 +30,7 @@ return(
         </Box>
         <Typography >{description.length>40? description.slice(0,40)+'...':description}</Typography>
         <Box className='flex flex-col gap-3'>
-        <Typography>{dueDate}</Typography>
+        <Typography>{dueDate.replace(/-/g,'/')}</Typography>
         <Box className='flex justify-between items-center'>
         <Chip label={status} color="success" className='w-25 !rounded-md'/>
         

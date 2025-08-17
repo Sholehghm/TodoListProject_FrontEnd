@@ -18,7 +18,7 @@ function App() {
     if(authToken){
       setLogedIn(true);
     }
-  })
+  },[]);
 
   return (
     <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
