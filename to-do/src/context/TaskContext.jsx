@@ -21,17 +21,10 @@ const getTasks = async()=>{
     }
 }
 
-const didFetch = useRef(false);
 
-useEffect(()=>{
-    if (!didFetch.current) {
-        getTasks();
-        didFetch.current = true;
-      }
-},[]);
 
 return(
-    <Provider value = {{tasks,setTasks,currentTask,setCurrentTask}}>
+    <Provider value = {{tasks,setTasks,getTasks,currentTask,setCurrentTask}}>
         {children}
     </Provider>
 );
