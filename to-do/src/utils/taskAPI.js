@@ -27,3 +27,13 @@ export const editExistedTask = async(task) => {
         return Promise.reject(error);
     }
 }
+
+export const deleteExistedTask = async(taskId) => {
+    console.log('asdfdf');
+    console.log(taskId);
+    try {
+        const deleteTask = await API.delete(`/tasks/${taskId}`)
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}

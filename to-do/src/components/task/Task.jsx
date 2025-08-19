@@ -6,16 +6,20 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UseEditDialog } from '../../context/EditDialogContext';
 import { UseTask } from '../../context/TaskContext';
+import { deleteExistedTask } from '../../utils/taskAPI';
 
 export default function Task({task,dropDown}){
-const{setCurrentTask,tasks,setTasks}=UseTask();
+const{currentTask,setCurrentTask,getTasks}=UseTask();
 const{handleOpen}=UseEditDialog();
 const{title,description,dueDate,status} = task;
 
-const handleDelete = () => {
-    const clonedTasks = [...tasks];
-    const deletedTasks = clonedTasks.filter((item)=>item.id !== task.id);
-    setTasks(deletedTasks);
+const handleDelete =async (id) => {
+    try {
+       const deletedTask = await deleteExistedTask(id);
+       await getTasks();
+    } catch (error) {
+        console.log(error);
+    }
 } 
 return(
     <div className={dropDown===true?'flex justify-center':'hidden'}>
@@ -34,7 +38,9 @@ return(
         <Box className='flex justify-between items-center'>
         <Chip label={status} color="success" className='w-25 !rounded-md'/>
         
-        <DeleteIcon onClick={handleDelete} />
+        <DeleteIcon onClick={async() =>{
+            await handleDelete(task.id);
+            }} />
         </Box>
         </Box>
     </Box>
