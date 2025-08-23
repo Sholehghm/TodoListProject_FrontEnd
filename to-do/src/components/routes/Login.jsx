@@ -5,7 +5,7 @@ import ResponsiveAppBar from "../navbar/NavBar";
 import { login,logedInCheck } from "../../utils/authAPI";
 import Dashbord from "../dashbord/Dashbord";
 
-const LoginForm = ({ logedIn, setLogedIn }) => {
+const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPssword] = useState('');
     const [logInError, setLogInError] = useState('');
@@ -39,8 +39,8 @@ const LoginForm = ({ logedIn, setLogedIn }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = await login(email, password);
-            localStorage.setItem('authToken', token.Token);
+            const user = await login(email, password);
+            setUser(user);
             setLogInError('');
             setLogedIn(true);
         } catch (error) {
@@ -56,7 +56,7 @@ const LoginForm = ({ logedIn, setLogedIn }) => {
                 <div className="flex-1">
                     <div className="flex h-screen justify-center items-center">
                         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                            <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn}></Dashbord>
+                            <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn} setUser={setUser}></Dashbord>
                         </div>
                     </div>
                 </div>

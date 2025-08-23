@@ -12,13 +12,21 @@ import LoginForm from './components/routes/Login';
 
 function App() {
   const [logedIn, setLogedIn] = useState(false);
+  const [user, setUser] = useState(null);
 
-  useEffect(()=>{
-    const authToken = localStorage.getItem('authToken');
-    if(authToken){
-      setLogedIn(true);
-    }
-  },[]);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const userData = await logedInCheck();
+        setUser(userData);
+        setLogedIn(true);
+      } catch (err) {
+        setLogedIn(false);
+        setUser(null);
+      }
+    };
+    checkAuth();
+  }, []);
 
   return (
     <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
@@ -30,7 +38,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/login' element={<LoginForm logedIn={logedIn} setLogedIn={setLogedIn} />} />
+                <Route path='/login' element={<LoginForm logedIn={logedIn} setLogedIn={setLogedIn} setUser={setUser} />} />
                 <Route path='/today-tasks' element={<TodayTasks />} />
                 <Route path='/Add-task' element={<AddTask />} />
                 <Route path='/search-task' element={<SearchTasks />} />

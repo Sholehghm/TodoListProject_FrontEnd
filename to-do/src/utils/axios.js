@@ -5,24 +5,13 @@ const API = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true,
 });
-
-API.interceptors.request.use(
-    (config)=>{
-        const token = localStorage.getItem('authToken');
-        if(token){
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error)=> Promise.reject(error)
-);
 
 API.interceptors.response.use(
     (response) => response.data,
     (error) => {
         if (error.response?.status === 401) {
-            localStorage.removeItem('authToken');
             if (window.location.pathname !== '/login') {
                 window.location.href = '/login';
             }

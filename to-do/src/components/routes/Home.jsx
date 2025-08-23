@@ -12,9 +12,7 @@ export default function Home() {
 
 
 useEffect(()=>{
-
         getTasks();
-        console.log('home');
 },[]);
 
     return (
