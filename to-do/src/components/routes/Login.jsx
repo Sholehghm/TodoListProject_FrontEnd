@@ -4,26 +4,28 @@ import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
 import { login,logedInCheck } from "../../utils/authAPI";
 import Dashbord from "../dashbord/Dashbord";
+import Loading from "../loading/Loading";
 
 const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPssword] = useState('');
     const [logInError, setLogInError] = useState('');
-
-    
+    const [checkLoading,setCheckLoading] = useState(false);
+    const [loginLoading,setLoginLoading]= useState(false);
 
     useEffect(()=>{
 
       const checklogedIn =async()=>{
         try {
+            setCheckLoading(true);
             const userEmail = await logedInCheck();
-            console.log(userEmail);
             setLogedIn(true);
             setEmail(userEmail);
-           
             } catch (error) {
               console.log(error);
               setLogedIn(false);
+            } finally{
+                setCheckLoading(false);
             }
 
       };
@@ -37,6 +39,7 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setLoginLoading(true);
             const user = await login(email, password);
             setUser(user);
             setLogInError('');
@@ -44,8 +47,11 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
         } catch (error) {
             console.log(error.response.data.error);
             setLogInError(error.response.data.error);
+        } finally {
+            setLoginLoading(false);
         }
     };
+
 
     if (logedIn) {
         return (
@@ -54,7 +60,7 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
                 <div className="flex-1">
                     <div className="flex h-screen justify-center items-center">
                         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                            <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn} setUser={setUser}></Dashbord>
+                            <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn} setUser={setUser} checkLoading={checkLoading} ></Dashbord>
                         </div>
                     </div>
                 </div>
@@ -96,7 +102,10 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
                                         onChange={(e) => setPssword(e.target.value)}
                                     />
                                 </Box>
-                                <Typography variant="body2" color="red" >{logInError}</Typography>
+                                {loginLoading ?
+                                  <Loading/> : 
+                                   <Typography variant="body2" color="red" >{logInError}</Typography> }
+                               
                                 <Button
                                     type="submit"
                                     variant="contained"

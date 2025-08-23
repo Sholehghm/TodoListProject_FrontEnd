@@ -27,7 +27,6 @@ export const logedInCheck =async () => {
 
         try {
             const UserEmail = await API.get('/get_user');
-            console.log(UserEmail);
             return UserEmail;
             } catch (error) {
                 return Promise.reject(error);
