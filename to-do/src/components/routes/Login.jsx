@@ -10,17 +10,15 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
     const [password, setPssword] = useState('');
     const [logInError, setLogInError] = useState('');
 
-    const didRun = useRef(false);
+    
 
     useEffect(()=>{
-
-    if (didRun.current) return;
-    didRun.current = true;
 
       const checklogedIn =async()=>{
         try {
             const userEmail = await logedInCheck();
             console.log(userEmail);
+            setLogedIn(true);
             setEmail(userEmail);
            
             } catch (error) {
@@ -30,11 +28,11 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
 
       };
 
-      if(logedIn){
+      
         checklogedIn(); 
-      }
+    
      
-    },[setLogedIn])
+    },[])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
