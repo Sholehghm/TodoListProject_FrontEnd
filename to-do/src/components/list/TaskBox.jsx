@@ -6,15 +6,15 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Task from "../task/Task";
 import { UseTask } from "../../context/TaskContext";
 import { UseSearchTask } from "../../context/SearchTaskContext";
+import Loading from "../loading/Loading";
 
 
 
 export default function TaskBox({status,route}) {
-    const{tasks}=UseTask();
+    const{tasks,loading}=UseTask();
     console.log(tasks);
     
     const[dropDown,setDropDown]=useState(true);
-
     const handleDropDown = () =>{
         dropDown===true?setDropDown(false):setDropDown(true);
     };
@@ -26,10 +26,9 @@ export default function TaskBox({status,route}) {
                     <KeyboardArrowDownIcon onClick={handleDropDown} className={dropDown===true?'!block':'!hidden'} />
                     <KeyboardArrowUpIcon onClick={handleDropDown} className={dropDown===true?'!hidden':'!block'}/>
 
-                </Box>
-                {tasks? tasks.map(task => (
+                </Box> {loading? <Loading/>:<Box>{tasks? tasks.map(task => (
                     task?.status == status ? <Task task={task} key={task.id} route={route} dropDown={dropDown} /> : ''
-                )):''}
+                )):''}</Box>}
             </Box>
         </>
     )
