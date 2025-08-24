@@ -9,11 +9,13 @@ export const UseTask = () => useContext(TaskContext);
 export function TaskProvider({children}){
 const[tasks,setTasks]=useState([]);
 const[currentTask,setCurrentTask]=useState('');
+const[searchTitle,setSearchTitle] = useState('');
+const[searchDate,setSearchDate] = useState(null);
 const{Provider} = TaskContext;
 
-const getTasks = async()=>{
+const getTasks = async(title,dueDate)=>{
     try {
-        const userTasks = await getUserTasks();
+        const userTasks = await getUserTasks(title,dueDate);
         console.log(userTasks);
         setTasks(userTasks);
     } catch (error) {
@@ -24,7 +26,7 @@ const getTasks = async()=>{
 
 
 return(
-    <Provider value = {{tasks,setTasks,getTasks,currentTask,setCurrentTask}}>
+    <Provider value = {{tasks,searchTitle,searchDate,setSearchTitle,setSearchDate,setTasks,getTasks,currentTask,setCurrentTask}}>
         {children}
     </Provider>
 );

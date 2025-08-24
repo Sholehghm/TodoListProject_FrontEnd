@@ -4,20 +4,30 @@ import TaskList from "../list/TaskList";
 import EditDialog from "../form/EditDialog";
 import { SearchTaskProvider, UseSearchTask } from "../../context/SearchTaskContext";
 import dayjs from 'dayjs';
+import { UseTask } from "../../context/TaskContext";
 
 export default function TodayTasks() {
-    const{searchedDate,setSearchedDate}=UseSearchTask();
-    useEffect(() => {
-        setSearchedDate(dayjs());
-      }, []);
+    const {getTasks} = UseTask();
+    useEffect(()=>{
+        const today = dayjs().format('YYYY/MM/DD')
+        const getTodayTasks = async() =>{
+            try {
+                await getTasks(null,today);
+                console.log('task');
+            } catch (error) {
+              console.log(error);  
+            }
+
+        };
+
+        getTodayTasks();
+},[]);
    
     return (
         <>
             <div className='sm:flex sm:flex-row '>
                 <ResponsiveAppBar />
-                <SearchTaskProvider>
-                    <TaskList date={searchedDate ? searchedDate.format('YYYY/MM/DD'):''} />
-                </SearchTaskProvider>
+                    <TaskList/>
             </div>
             <EditDialog />
         </>

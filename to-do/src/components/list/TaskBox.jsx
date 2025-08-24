@@ -12,12 +12,7 @@ import { UseSearchTask } from "../../context/SearchTaskContext";
 export default function TaskBox({status,date}) {
     const{tasks}=UseTask();
     console.log(tasks);
-    const{searchedTitle,setSearchedTitle,searchedDate,setSearchedDate}=UseSearchTask();
-    useEffect(()=>{
-        setSearchedTitle('');
-        setSearchedDate(null);
-    },[]);
-
+    
     const[dropDown,setDropDown]=useState(true);
 
     const handleDropDown = () =>{
@@ -32,12 +27,9 @@ export default function TaskBox({status,date}) {
                     <KeyboardArrowUpIcon onClick={handleDropDown} className={dropDown===true?'!hidden':'!block'}/>
 
                 </Box>
-                {date? 
-                tasks.map(task => (
-                    task?.status == status && task?.dueDate===date ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
-                )):tasks.map(task => (
+                {tasks? tasks.map(task => (
                     task?.status == status ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
-                ))}
+                )):''}
             </Box>
         </>
     )

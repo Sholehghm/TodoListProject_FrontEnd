@@ -1,9 +1,20 @@
 import API from "./axios";
 
-export const getUserTasks = async() => {
+export const getUserTasks = async(title,dueDate) => {
     try {
+        if(title && dueDate){
+            const userTasks = await API.get(`/tasks?title=${title}&dueDate=${dueDate}`);
+            return userTasks;
+        }
+        if(title && !dueDate){
+            const userTasks = await API.get(`/tasks?title=${title}`);
+            return userTasks;
+        }
+        if(!title && dueDate){
+            const userTasks = await API.get(`/tasks?dueDate=${dueDate}`);
+            return userTasks;
+        }
         const userTasks = await API.get('/tasks');
-        console.log(userTasks);
         return userTasks;
     } catch (error) {
         return Promise.reject(error);
