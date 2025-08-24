@@ -9,7 +9,7 @@ import { UseSearchTask } from "../../context/SearchTaskContext";
 
 
 
-export default function TaskBox({status,date}) {
+export default function TaskBox({status,route}) {
     const{tasks}=UseTask();
     console.log(tasks);
     
@@ -28,7 +28,7 @@ export default function TaskBox({status,date}) {
 
                 </Box>
                 {tasks? tasks.map(task => (
-                    task?.status == status ? <Task task={task} key={task.id} dropDown={dropDown} /> : ''
+                    task?.status == status ? <Task task={task} key={task.id} route={route} dropDown={dropDown} /> : ''
                 )):''}
             </Box>
         </>

@@ -19,7 +19,7 @@ useEffect(()=>{
         <>
             <div className='sm:flex sm:flex-row '>
                 <ResponsiveAppBar />
-                    <TaskList />
+                    <TaskList route='home' />
             </div>
             <EditDialog />
         </>

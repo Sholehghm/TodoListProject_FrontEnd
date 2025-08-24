@@ -27,7 +27,7 @@ export default function TodayTasks() {
         <>
             <div className='sm:flex sm:flex-row '>
                 <ResponsiveAppBar />
-                    <TaskList/>
+                    <TaskList route='today-tasks'/>
             </div>
             <EditDialog />
         </>

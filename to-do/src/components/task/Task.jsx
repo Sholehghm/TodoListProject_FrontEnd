@@ -8,15 +8,23 @@ import { UseEditDialog } from '../../context/EditDialogContext';
 import { UseTask } from '../../context/TaskContext';
 import { deleteExistedTask } from '../../utils/taskAPI';
 
-export default function Task({task,dropDown}){
-const{currentTask,setCurrentTask,getTasks}=UseTask();
+export default function Task({task,route,dropDown}){
+const{currentTask,setCurrentTask,getTasks,today,searchTitle,searchDate}=UseTask();
 const{handleOpen}=UseEditDialog();
 const{title,description,dueDate,status} = task;
 
 const handleDelete =async (id) => {
     try {
        const deletedTask = await deleteExistedTask(id);
-       await getTasks();
+       if(route === 'home'){
+        await getTasks();
+       }
+       if(route === 'today-tasks'){
+        await getTasks(null,today);
+       }
+       if(route === 'search-tasks'){
+        await getTasks(searchTitle,searchDate);
+       }
     } catch (error) {
         console.log(error);
     }

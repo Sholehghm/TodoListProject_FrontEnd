@@ -11,14 +11,18 @@ import { UseTask } from "../../context/TaskContext";
 
 
 export default function SearchTasks() {
-    const {getTasks} = UseTask();
-    const [title, setTitle] = useState('');
-    const [date, setDate] = useState(null);
+    const {getTasks,setTasks,searchTitle,searchDate,setSearchTitle,setSearchDate} = UseTask();
+    
+    useEffect(()=>{
+        setTasks([]);
+        setSearchTitle('');
+        setSearchDate(null);
+    },[]);
 
 
     const getSearchTasks = async () => {
         try {
-            await getTasks(title, date);
+            await getTasks(searchTitle, searchDate);
 
         } catch (error) {
             console.log(error);
@@ -37,16 +41,16 @@ export default function SearchTasks() {
                         label="title"
                         variant="outlined"
                         className="w-full"
-                        onChange={(e) => { setTitle(e.target.value) }}
-                        value={title} />
+                        onChange={(e) => { setSearchTitle(e.target.value) }}
+                        value={searchTitle} />
                     <Button variant="contained" onClick={getSearchTasks }>
                     Searche by title
                     </Button>
-                    <BasicDatePicker value={date} onChange={setDate} />
+                    <BasicDatePicker value={searchDate} onChange={setSearchDate} />
                     <Button variant="contained" onClick={getSearchTasks }>
                     Searche by dueDate
                     </Button>
-                    <TaskList />
+                    <TaskList route='search-tasks'/>
                 </Box>
             </div>
             <EditDialog />

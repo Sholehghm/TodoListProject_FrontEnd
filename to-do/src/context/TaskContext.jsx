@@ -1,12 +1,13 @@
 import React,{createContext, useContext,useEffect,useState,useRef} from "react";
 import { getUserTasks } from "../utils/taskAPI";
-
+import dayjs from 'dayjs'
 const TaskContext = createContext();
 
 export const UseTask = () => useContext(TaskContext);
 
 
 export function TaskProvider({children}){
+const today = dayjs().format('YYYY/MM/DD')
 const[tasks,setTasks]=useState([]);
 const[currentTask,setCurrentTask]=useState('');
 const[searchTitle,setSearchTitle] = useState('');
@@ -26,7 +27,7 @@ const getTasks = async(title,dueDate)=>{
 
 
 return(
-    <Provider value = {{tasks,searchTitle,searchDate,setSearchTitle,setSearchDate,setTasks,getTasks,currentTask,setCurrentTask}}>
+    <Provider value = {{tasks,today,setTasks,searchTitle,searchDate,setSearchTitle,setSearchDate,getTasks,currentTask,setCurrentTask}}>
         {children}
     </Provider>
 );
