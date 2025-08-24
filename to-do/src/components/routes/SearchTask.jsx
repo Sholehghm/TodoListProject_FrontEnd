@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { UseTask } from "../../context/TaskContext";
+import DeleteDialog from "../form/DeleteDialoge";
 
 
 export default function SearchTasks() {
@@ -54,6 +55,7 @@ export default function SearchTasks() {
                 </Box>
             </div>
             <EditDialog />
+            <DeleteDialog/>
         </>
 
     )

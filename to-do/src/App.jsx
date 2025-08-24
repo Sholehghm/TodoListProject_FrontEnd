@@ -9,6 +9,7 @@ import TodayTasks from './components/routes/TodayTasks';
 import SearchTasks from './components/routes/SearchTask';
 import RegisterForm from './components/routes/Registration';
 import LoginForm from './components/routes/Login';
+import { DeleteProvider } from './context/DeleteDialogContext';
 
 function App() {
   const [logedIn, setLogedIn] = useState(false);
@@ -32,7 +33,7 @@ function App() {
     <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
       <TaskProvider>
         <EditProvider>
-        <SearchTaskProvider>
+          <DeleteProvider>
             <Router>
               <Routes>
                 <Route index element={<Home />} />
@@ -44,7 +45,7 @@ function App() {
                 <Route path='/search-task' element={<SearchTasks />} />
               </Routes>
             </Router>
-            </SearchTaskProvider>
+          </DeleteProvider>
         </EditProvider>
       </TaskProvider>
 

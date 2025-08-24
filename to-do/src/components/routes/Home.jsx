@@ -5,6 +5,7 @@ import TaskList from "../list/TaskList";
 import EditDialog from "../form/EditDialog";
 import { SearchTaskProvider } from "../../context/SearchTaskContext";
 import { UseTask } from "../../context/TaskContext";
+import DeleteDialog from "../form/DeleteDialoge";
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ useEffect(()=>{
                     <TaskList route='home' />
             </div>
             <EditDialog />
+            <DeleteDialog />
         </>
 
     )

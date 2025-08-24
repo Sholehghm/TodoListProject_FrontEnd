@@ -6,29 +6,19 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UseEditDialog } from '../../context/EditDialogContext';
 import { UseTask } from '../../context/TaskContext';
-import { deleteExistedTask } from '../../utils/taskAPI';
+import { UseDeleteDialog } from '../../context/DeleteDialogContext';
+import { useEffect } from 'react';
 
 export default function Task({task,route,dropDown}){
-const{currentTask,setCurrentTask,getTasks,today,searchTitle,searchDate}=UseTask();
+const{setCurrentTask}=UseTask();
 const{handleOpen}=UseEditDialog();
 const{title,description,dueDate,status} = task;
+const{deleteHandleOpen,setRoute} = UseDeleteDialog();
 
-const handleDelete =async (id) => {
-    try {
-       const deletedTask = await deleteExistedTask(id);
-       if(route === 'home'){
-        await getTasks();
-       }
-       if(route === 'today-tasks'){
-        await getTasks(null,today);
-       }
-       if(route === 'search-tasks'){
-        await getTasks(searchTitle,searchDate);
-       }
-    } catch (error) {
-        console.log(error);
-    }
-} 
+useEffect(() => {
+    setRoute(route);
+  }, [route, setRoute]);
+
 return(
     <div className={dropDown===true?'flex justify-center':'hidden'}>
     <Tooltip title={task?.description}>
@@ -46,8 +36,10 @@ return(
         <Box className='flex justify-between items-center'>
         <Chip label={status} color="success" className='w-25 !rounded-md'/>
         
-        <DeleteIcon onClick={async() =>{
-            await handleDelete(task.id);
+        <DeleteIcon onClick={() =>{
+            console.log('asdfsdf');
+            deleteHandleOpen();
+            setCurrentTask(task);
             }} />
         </Box>
         </Box>

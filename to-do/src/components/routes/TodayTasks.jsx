@@ -5,6 +5,7 @@ import EditDialog from "../form/EditDialog";
 import { SearchTaskProvider, UseSearchTask } from "../../context/SearchTaskContext";
 import dayjs from 'dayjs';
 import { UseTask } from "../../context/TaskContext";
+import DeleteDialog from "../form/DeleteDialoge";
 
 export default function TodayTasks() {
     const {getTasks} = UseTask();
@@ -30,6 +31,7 @@ export default function TodayTasks() {
                     <TaskList route='today-tasks'/>
             </div>
             <EditDialog />
+            <DeleteDialog />
         </>
 
     )
