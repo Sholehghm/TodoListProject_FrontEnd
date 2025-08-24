@@ -13,13 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SideBar from '../sidebar/SideBar';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 
 function ResponsiveAppBar() {
   const pages = ['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task'];
   const routes = ['home', 'login', 'today-tasks', 'add-task', 'search-task'];
 
+  const location = useLocation();
+  const currentLocation = location.pathname;
+  console.log(currentLocation);
   
   const [state, setState] = React.useState({
     left: false,
@@ -35,8 +38,8 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
-      <Container className='' >
-        <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 '>
+      <Container className='!p-0' >
+        <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 !p-0 '>
           <Box className='sm:hidden'>
             <IconButton
               size="large"
@@ -74,11 +77,12 @@ function ResponsiveAppBar() {
 
           </Box>
 
-          <Box className='max-sm:hidden sm:flex-col'>
+          <Box className='max-sm:hidden sm:flex-col w-full'>
             {pages.map((page,index) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
+                className={currentLocation.includes(routes[index])? '!bg-[#fdf6e3]  w-full':''}
+                sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left', px: 2, '&:hover': {fontWeight: 'bold'}, width:'100%'}}
               >
                 <Link to={`/${routes[index]}`}>
                 {page}
