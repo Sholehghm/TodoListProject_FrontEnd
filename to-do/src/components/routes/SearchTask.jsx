@@ -37,20 +37,26 @@ export default function SearchTasks() {
         <>
             <div className='sm:flex sm:flex-row '>
                 <ResponsiveAppBar />
-                <Box className='w-full mt-20'>
-                    <TextField
+                <Box className='w-full mt-20 flex flex-col gap-4'>
+                    <Box className='w-full flex flex-row gap-4 items-center p-4'>
+                        <TextField
                         label="title"
                         variant="outlined"
-                        className="w-full"
+                        className="w-full bg-white rounded-md"
                         onChange={(e) => { setSearchTitle(e.target.value) }}
                         value={searchTitle} />
-                    <Button variant="contained" onClick={getSearchTasks }>
+                    <Button variant="contained" onClick={getSearchTasks } className="!bg-green-700 w-full h-10">
                     Searche by title
                     </Button>
+                    </Box>
+                    <Box className='w-full flex flex-row gap-4 items-center p-4'>
                     <BasicDatePicker value={searchDate} onChange={setSearchDate} />
-                    <Button variant="contained" onClick={getSearchTasks }>
+                    <Button variant="contained" onClick={getSearchTasks } className="!bg-green-700 w-full h-10">
                     Searche by dueDate
                     </Button>
+                    </Box>
+                    
+                    
                     <TaskList route='search-tasks'/>
                 </Box>
             </div>
