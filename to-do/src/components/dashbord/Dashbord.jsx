@@ -20,12 +20,12 @@ export default function Dashboard (){
     };
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 justify-center items-center">
             {checkLoading?
              <Loading/>:
             <Typography variant="h5">{email}</Typography>
         }
-            <Button variant="contained"  onClick={logingOut}>log out</Button>
+            <Button variant="contained"  onClick={logingOut} className="!bg-green-700 w-[50%]">log out</Button>
         </div>
     )
 }

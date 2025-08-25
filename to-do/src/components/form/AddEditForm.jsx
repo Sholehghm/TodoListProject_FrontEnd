@@ -75,7 +75,7 @@ export default function AddEditForm({ mode = 'add'}) {
                     value={description} />
                 <BasicDatePicker value={date} onChange={setDate} />
                 <BasicSelect value={status} onChange={(e) =>{setStatus(e.target.value)}} />
-                <Button variant="contained" onClick={mode==='add'? addTask:editTask}>
+                <Button variant="contained" onClick={mode==='add'? addTask:editTask} className="!bg-green-700">
                     <AddIcon />
                     {mode}
                 </Button>
