@@ -10,10 +10,10 @@ import SearchTasks from './components/routes/SearchTask';
 import RegisterForm from './components/routes/Registration';
 import LoginForm from './components/routes/Login';
 import { DeleteProvider } from './context/DeleteDialogContext';
+import { UseUser } from './context/UserContext';
 
 function App() {
-  const [logedIn, setLogedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const {email,setEmail,password,setPassword,logedIn,setLogedIn,checkLoading,setCheckLoading,user,setUser} = UseUser();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -39,7 +39,16 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/login' element={<LoginForm logedIn={logedIn} setLogedIn={setLogedIn} setUser={setUser} />} />
+                <Route path='/login' element={<LoginForm
+                  email={email}
+                  setEmail={setEmail}
+                  password={password}
+                  setPassword={setPassword}
+                  logedIn={logedIn}
+                  setLogedIn={setLogedIn}
+                  setUser={setUser}
+                  checkLoading={checkLoading}
+                  setCheckLoading={setCheckLoading} />} />
                 <Route path='/today-tasks' element={<TodayTasks />} />
                 <Route path='/Add-task' element={<AddTask />} />
                 <Route path='/search-task' element={<SearchTasks />} />

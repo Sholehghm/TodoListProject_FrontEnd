@@ -72,7 +72,7 @@ function ResponsiveAppBar() {
           <Box >
 
             <IconButton  className='text-left'>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Remy Sharp" />
             </IconButton>
 
           </Box>

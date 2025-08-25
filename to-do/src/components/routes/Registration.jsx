@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
 import { register } from "../../utils/authAPI";
+import { UseUser } from "../../context/UserContext";
 
 const RegisterForm = () => {
-    const [email, setEmail] =useState('');
-    const [password, setPassword] = useState('');
+    const {email,setEmail,password,setPassword} = UseUser();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [registerError, setRegisterError] = useState('');
 

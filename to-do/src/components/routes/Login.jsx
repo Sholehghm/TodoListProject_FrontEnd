@@ -5,12 +5,11 @@ import ResponsiveAppBar from "../navbar/NavBar";
 import { login,logedInCheck } from "../../utils/authAPI";
 import Dashbord from "../dashbord/Dashbord";
 import Loading from "../loading/Loading";
+import { UseUser } from "../../context/UserContext";
 
-const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPssword] = useState('');
+const LoginForm = () => {
+    const {email,setEmail,password,setPassword,logedIn,setLogedIn,setUser,checkLoading,setCheckLoading} = UseUser();
     const [logInError, setLogInError] = useState('');
-    const [checkLoading,setCheckLoading] = useState(false);
     const [loginLoading,setLoginLoading]= useState(false);
 
     useEffect(()=>{
@@ -60,7 +59,7 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
                 <div className="flex-1">
                     <div className="flex h-screen justify-center items-center">
                         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                            <Dashbord email={email} setEmail={setEmail} setPassword={setPssword} setLogedIn={setLogedIn} setUser={setUser} checkLoading={checkLoading} ></Dashbord>
+                            <Dashbord email={email} setEmail={setEmail} setPassword={setPassword} setLogedIn={setLogedIn} setUser={setUser} checkLoading={checkLoading} ></Dashbord>
                         </div>
                     </div>
                 </div>
@@ -89,7 +88,9 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
                                         required
                                         className="!mb-2"
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) => {setEmail(e.target.value);
+                                            console.log(email);
+                                        }}
                                     />
                                     <TextField
                                         label="Password"
@@ -99,7 +100,7 @@ const LoginForm = ({ logedIn, setLogedIn , setUser }) => {
                                         required
                                         className="!mb-2"
                                         value={password}
-                                        onChange={(e) => setPssword(e.target.value)}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Box>
                                 {loginLoading ?

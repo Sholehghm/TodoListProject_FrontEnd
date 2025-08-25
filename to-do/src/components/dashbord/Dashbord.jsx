@@ -2,8 +2,10 @@ import React from "react";
 import { Button,Typography } from "@mui/material";
 import { logOut } from "../../utils/authAPI";
 import Loading from "../loading/Loading";
+import { UseUser } from "../../context/UserContext";
 
-export default function Dashbord ({email,setEmail,setPassword, setLogedIn,setUser,checkLoading}){
+export default function Dashbord (){
+    const {email,setEmail,setPassword, setLogedIn,setUser,checkLoading} = UseUser();
     const logingOut =async ()=>{
         try {
            const signout =  await logOut();
