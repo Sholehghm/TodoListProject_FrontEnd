@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
 import { login,logedInCheck } from "../../utils/authAPI";
-import Dashbord from "../dashbord/Dashbord";
+import Dashboard from "../dashbord/Dashbord";
 import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
 
@@ -59,7 +59,7 @@ const LoginForm = () => {
                 <div className="flex-1">
                     <div className="flex h-screen justify-center items-center">
                         <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                            <Dashbord email={email} setEmail={setEmail} setPassword={setPassword} setLogedIn={setLogedIn} setUser={setUser} checkLoading={checkLoading} ></Dashbord>
+                            <Dashboard></Dashboard>
                         </div>
                     </div>
                 </div>

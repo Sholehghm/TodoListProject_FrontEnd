@@ -4,7 +4,7 @@ import { logOut } from "../../utils/authAPI";
 import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
 
-export default function Dashbord (){
+export default function Dashboard (){
     const {email,setEmail,setPassword, setLogedIn,setUser,checkLoading} = UseUser();
     const logingOut =async ()=>{
         try {

@@ -13,7 +13,7 @@ import { addNewTask, editExistedTask } from "../../utils/taskAPI";
 import dayjs from "dayjs";
 
 export default function AddEditForm({ mode = 'add'}) {
-    const{currentTask,tasks,setTasks,getTasks}=UseTask();
+    const{currentTask,setCurrentTask,getTasks}=UseTask();
     const{handleClose}=UseEditDialog();
     const[title,setTitle]=useState(currentTask?.title??'');
     const[description,setDescription]=useState(currentTask?.description??'');
@@ -46,23 +46,26 @@ export default function AddEditForm({ mode = 'add'}) {
             const callEditTask = await editExistedTask(editedTask);
             await getTasks();
             handleClose();
+            setCurrentTask('');
         } catch (error) {
            console.log(error); 
         }
     };
     return (
         <Box className='flex-1'>
-            <div className="flex ${mode=='add'?'h-screen'} items-center justify-center">
-            <form className={`${mode=='add'?'w-[50%]':'w-screen'} flex flex-col gap-2 p-4`}>
+            <div className="flex ${mode=='add'?'h-screen'} items-center justify-center ">
+            <form className={`${mode=='add'?'w-[50%]':'w-screen'} flex flex-col gap-2 p-4 `}>
                 <Typography variant="body-1" className="font-bold">
                     {mode === 'add' ? 'Add a new task' : 'Edit task'}
                 </Typography>
                 <TextField
                     label="title"
                     variant="outlined"
-                    className="w-full"
+                    className="w-full bg-white"
                     onChange={(e)=>{setTitle(e.target.value)}}
-                    value={title}/>
+                    value={title}
+                    
+                    />
                 <Textarea
                     size="lg"
                     name="description"

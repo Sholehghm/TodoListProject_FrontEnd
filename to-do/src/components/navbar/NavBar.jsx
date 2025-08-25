@@ -14,27 +14,43 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SideBar from '../sidebar/SideBar';
 import {Link, useLocation} from 'react-router-dom';
+import { useState } from 'react';
+import UserMenu from '../form/UserMenu';
+import { UseTask } from '../../context/TaskContext';
+import { UseUser } from '../../context/UserContext';
 
 
 function ResponsiveAppBar() {
   const pages = ['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task'];
   const routes = ['home', 'login', 'today-tasks', 'add-task', 'search-task'];
 
+  const {logedIn}= UseUser();
+
   const location = useLocation();
   const currentLocation = location.pathname;
-  console.log(currentLocation);
+  
   
   const [state, setState] = React.useState({
     left: false,
   });
 
+  const [anchorEl,setAnchorEl] = useState(null);
+
+  const handleUserMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleUserMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const userMenuOpen = Boolean(anchorEl);
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
-    }
-
+    };
     setState({ ...state, [anchor]: open });
   };
+
 
   return (
     <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
@@ -71,10 +87,11 @@ function ResponsiveAppBar() {
           </Typography>
           <Box >
 
-            <IconButton  className='text-left'>
-              <Avatar alt="Remy Sharp" />
+            <IconButton  className='text-left' onClick={handleUserMenuOpen}>
+              <Avatar alt="Remy Sharp" className={logedIn? '!bg-green-700':''} />
+             
             </IconButton>
-
+            <UserMenu open={userMenuOpen} anchorEl={anchorEl} handleClose={handleUserMenuClose} />
           </Box>
 
           <Box className='max-sm:hidden sm:flex-col w-full'>
