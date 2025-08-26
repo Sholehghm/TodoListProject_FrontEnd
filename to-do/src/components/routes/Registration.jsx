@@ -4,11 +4,13 @@ import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
 import { register } from "../../utils/authAPI";
 import { UseUser } from "../../context/UserContext";
+import Loading from "../loading/Loading";
 
 const RegisterForm = () => {
-    const {email,setEmail,password,setPassword} = UseUser();
+    const {email,setEmail,password,setPassword,setCheckLoading} = UseUser();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [registerError, setRegisterError] = useState('');
+    const [registerLoading,setRegisterLoading] = useState(false);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -16,14 +18,16 @@ const RegisterForm = () => {
             setRegisterError("confirm password is not correct!")
             throw new Error("confirm password is not correct!")}; 
         try { 
+            setRegisterLoading(true);
             const newUser = await register(email,password);
-            console.log(newUser);
             setEmail('');
             setPassword('');
             window.location.href = '/login';
         } catch (error) {
             console.log(error);
            setRegisterError(error.response.data.error); 
+        } finally{
+            setRegisterLoading(false);
         }
       
     };
@@ -71,12 +75,12 @@ const RegisterForm = () => {
                                     onChange={(e)=>setConfirmPassword(e.target.value)}
                                 />
                                 </Box>
-                                <Typography variant="body2" color="red" >{registerError}</Typography>
+                                {registerLoading? <Loading/>:<Typography variant="body2" color="red" >{registerError}</Typography>}
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    color="primary"
                                     fullWidth
+                                    className="!bg-green-700"
                                 >
                                    Sign up
                                 </Button>
