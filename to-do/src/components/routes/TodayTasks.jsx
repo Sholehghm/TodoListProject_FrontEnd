@@ -15,7 +15,6 @@ export default function TodayTasks() {
         const getTodayTasks = async() =>{
             try {
                 await getTasks(null,today);
-                console.log('task');
             } catch (error) {
               console.log(error);  
             }

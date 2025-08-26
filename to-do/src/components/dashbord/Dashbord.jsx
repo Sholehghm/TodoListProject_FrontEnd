@@ -5,7 +5,7 @@ import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
 
 export default function Dashboard (){
-    const {email,setEmail,setPassword, setLogedIn,setUser,checkLoading} = UseUser();
+    const {email,setEmail,setPassword, setLogedIn,checkLoading} = UseUser();
     const logingOut =async ()=>{
         try {
            const signout =  await logOut();
@@ -13,7 +13,6 @@ export default function Dashboard (){
         } catch (error) {
             console.log(error);
         }
-        setUser(null);
         setLogedIn(false);
         setEmail('');
         setPassword('');

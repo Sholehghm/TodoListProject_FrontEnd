@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import AddTask from './components/routes/AddTask';
 import { EditProvider } from './context/EditDialogContext';
 import { TaskProvider } from './context/TaskContext';
-import { SearchTaskProvider } from './context/SearchTaskContext';
 import TodayTasks from './components/routes/TodayTasks';
 import SearchTasks from './components/routes/SearchTask';
 import RegisterForm from './components/routes/Registration';
@@ -14,17 +13,17 @@ import { UseUser } from './context/UserContext';
 import { SnackbarProvider } from './context/SnackbarContext';
 
 function App() {
-  const {email,setEmail,password,setPassword,logedIn,setLogedIn,checkLoading,setCheckLoading,user,setUser} = UseUser();
+  const {setEmail,setLogedIn} = UseUser();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const userData = await logedInCheck();
-        setUser(userData);
+         setEmail(userData);
         setLogedIn(true);
       } catch (err) {
         setLogedIn(false);
-        setUser(null);
+        setEmail('');
       }
     };
     checkAuth();
@@ -41,16 +40,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/login' element={<LoginForm
-                  email={email}
-                  setEmail={setEmail}
-                  password={password}
-                  setPassword={setPassword}
-                  logedIn={logedIn}
-                  setLogedIn={setLogedIn}
-                  setUser={setUser}
-                  checkLoading={checkLoading}
-                  setCheckLoading={setCheckLoading} />} />
+                <Route path='/login' element={<LoginForm />} />
                 <Route path='/today-tasks' element={<TodayTasks />} />
                 <Route path='/Add-task' element={<AddTask />} />
                 <Route path='/search-task' element={<SearchTasks />} />

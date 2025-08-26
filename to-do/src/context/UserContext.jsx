@@ -9,11 +9,10 @@ export function UserProvider({children}){
     const [password, setPassword] = useState('');
     const [logedIn, setLogedIn] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
-    const [user, setUser] = useState(null);
     const {Provider} = UserContext;
 
     return(
-        <Provider value={{email,setEmail,password,setPassword,logedIn,setLogedIn,checkLoading,setCheckLoading,user,setUser}}>
+        <Provider value={{email,setEmail,password,setPassword,logedIn,setLogedIn,checkLoading,setCheckLoading}}>
             {children}
         </Provider>
     )

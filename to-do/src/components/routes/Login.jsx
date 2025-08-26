@@ -8,7 +8,7 @@ import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
 
 const LoginForm = () => {
-    const {email,setEmail,password,setPassword,logedIn,setLogedIn,setUser,checkLoading,setCheckLoading} = UseUser();
+    const {email,setEmail,password,setPassword,logedIn,setLogedIn,setCheckLoading} = UseUser();
     const [logInError, setLogInError] = useState('');
     const [loginLoading,setLoginLoading]= useState(false);
 
@@ -33,14 +33,14 @@ const LoginForm = () => {
         checklogedIn(); 
     
      
-    },[])
+    },[]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             setLoginLoading(true);
             const user = await login(email, password);
-            setUser(user);
+            setEmail(user);
             setLogInError('');
             setLogedIn(true);
         } catch (error) {
@@ -110,8 +110,8 @@ const LoginForm = () => {
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    color="primary"
                                     fullWidth
+                                    className="!bg-green-700"
                                 >
                                     Log in
                                 </Button>

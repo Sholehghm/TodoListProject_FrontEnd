@@ -5,14 +5,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Task from "../task/Task";
 import { UseTask } from "../../context/TaskContext";
-import { UseSearchTask } from "../../context/SearchTaskContext";
 import Loading from "../loading/Loading";
 
 
 
 export default function TaskBox({status,route}) {
     const{tasks,loading}=UseTask();
-    console.log(tasks);
     
     const[dropDown,setDropDown]=useState(true);
     const handleDropDown = () =>{
