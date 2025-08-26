@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ResponsiveAppBar from "../navbar/NavBar";
 import TaskList from "../list/TaskList";
 import EditDialog from "../form/EditDialog";
@@ -10,12 +10,26 @@ import Button from "@mui/material/Button";
 import { UseTask } from "../../context/TaskContext";
 import DeleteDialog from "../form/DeleteDialoge";
 import SnackbarMessage from "../snackbar/SnackbarMessage";
-
+import { logedInCheck } from "../../utils/authAPI";
+import { UseUser } from "../../context/UserContext";
 
 export default function SearchTasks() {
+    const {setEmail,setLogedIn} = UseUser();
     const {getTasks,setTasks,searchTitle,searchDate,setSearchTitle,setSearchDate} = UseTask();
     
     useEffect(()=>{
+        const checklogedIn =async()=>{
+            try {
+                const userEmail = await logedInCheck();
+                setLogedIn(true);
+                setEmail(userEmail);
+                } catch (error) {
+                  console.log(error);
+                } 
+    
+          };
+     
+        checklogedIn();
         setTasks([]);
         setSearchTitle('');
         setSearchDate(null);
