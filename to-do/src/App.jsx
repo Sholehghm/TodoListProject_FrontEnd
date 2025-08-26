@@ -11,6 +11,7 @@ import RegisterForm from './components/routes/Registration';
 import LoginForm from './components/routes/Login';
 import { DeleteProvider } from './context/DeleteDialogContext';
 import { UseUser } from './context/UserContext';
+import { SnackbarProvider } from './context/SnackbarContext';
 
 function App() {
   const {email,setEmail,password,setPassword,logedIn,setLogedIn,checkLoading,setCheckLoading,user,setUser} = UseUser();
@@ -34,6 +35,7 @@ function App() {
       <TaskProvider>
         <EditProvider>
           <DeleteProvider>
+            <SnackbarProvider>
             <Router>
               <Routes>
                 <Route index element={<Home />} />
@@ -54,6 +56,7 @@ function App() {
                 <Route path='/search-task' element={<SearchTasks />} />
               </Routes>
             </Router>
+            </SnackbarProvider>
           </DeleteProvider>
         </EditProvider>
       </TaskProvider>

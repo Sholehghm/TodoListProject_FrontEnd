@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { UseTask } from "../../context/TaskContext";
 import DeleteDialog from "../form/DeleteDialoge";
+import SnackbarMessage from "../snackbar/SnackbarMessage";
 
 
 export default function SearchTasks() {
@@ -62,6 +63,7 @@ export default function SearchTasks() {
             </div>
             <EditDialog />
             <DeleteDialog/>
+            <SnackbarMessage/>
         </>
 
     )

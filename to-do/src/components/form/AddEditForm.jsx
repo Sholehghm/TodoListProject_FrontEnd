@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Textarea from '@mui/joy/Textarea';
 import BasicDatePicker from "./BasicDatePicker";
@@ -11,6 +11,8 @@ import { UseTask } from "../../context/TaskContext";
 import { UseEditDialog } from "../../context/EditDialogContext";
 import { addNewTask, editExistedTask } from "../../utils/taskAPI";
 import dayjs from "dayjs";
+import Loading from "../loading/Loading";
+import { UseSnackbar } from "../../context/SnackbarContext";
 
 export default function AddEditForm({ mode = 'add'}) {
     const{currentTask,setCurrentTask,getTasks}=UseTask();
@@ -19,6 +21,8 @@ export default function AddEditForm({ mode = 'add'}) {
     const[description,setDescription]=useState(currentTask?.description??'');
     const[date,setDate]=useState(currentTask.dueDate ? dayjs(currentTask.dueDate) : null);
     const[status,setStatus]=useState(currentTask?.status??'');
+    const[loading,setLoading]=useState(false);
+    const{setSnackbarOpen,setSnackbarMessage} = UseSnackbar(); 
 
     const addTask = async () =>{
         const newTask = {
@@ -28,9 +32,14 @@ export default function AddEditForm({ mode = 'add'}) {
             status
         }
         try {
-            const callAddTask = await addNewTask(newTask); 
+            setLoading(true);
+            const callAddTask = await addNewTask(newTask);
+            setSnackbarMessage(callAddTask.message);
+            setSnackbarOpen(true);
         } catch (error) {
            console.log(error); 
+        }finally{
+            setLoading(false);
         }
     };
     const editTask = async () =>{
@@ -43,12 +52,18 @@ export default function AddEditForm({ mode = 'add'}) {
         }
         
         try {
+            setLoading(true);
             const callEditTask = await editExistedTask(editedTask);
             await getTasks();
             handleClose();
             setCurrentTask('');
+            setSnackbarMessage(callEditTask.message);
+            setSnackbarOpen(true);
+            
         } catch (error) {
            console.log(error); 
+        }finally{
+            setLoading(false);
         }
     };
     return (
@@ -75,6 +90,7 @@ export default function AddEditForm({ mode = 'add'}) {
                     value={description} />
                 <BasicDatePicker value={date} onChange={setDate} />
                 <BasicSelect value={status} onChange={(e) =>{setStatus(e.target.value)}} />
+                {loading? <Loading/>:''}
                 <Button variant="contained" onClick={mode==='add'? addTask:editTask} className="!bg-green-700">
                     <AddIcon />
                     {mode}
@@ -84,6 +100,7 @@ export default function AddEditForm({ mode = 'add'}) {
 
 
         </div>
+        
         </Box>
         
     )

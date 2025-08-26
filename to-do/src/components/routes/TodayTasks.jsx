@@ -6,6 +6,7 @@ import { SearchTaskProvider, UseSearchTask } from "../../context/SearchTaskConte
 import dayjs from 'dayjs';
 import { UseTask } from "../../context/TaskContext";
 import DeleteDialog from "../form/DeleteDialoge";
+import SnackbarMessage from "../snackbar/SnackbarMessage";
 
 export default function TodayTasks() {
     const {getTasks} = UseTask();
@@ -32,6 +33,7 @@ export default function TodayTasks() {
             </div>
             <EditDialog />
             <DeleteDialog />
+            <SnackbarMessage/>
         </>
 
     )

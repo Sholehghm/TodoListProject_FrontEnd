@@ -24,7 +24,7 @@ export const getUserTasks = async(title,dueDate) => {
 export const addNewTask = async(NewTask) => {
     try {
         const addTask = await API.post('/tasks',{title: NewTask.title, description: NewTask.description, dueDate: NewTask.dueDate, status: NewTask.status});
-        
+        return addTask;
     } catch (error) {
         return Promise.reject(error);
     }
@@ -33,7 +33,7 @@ export const addNewTask = async(NewTask) => {
 export const editExistedTask = async(task) => {
     try {
         const editedTask = await API.put(`/tasks/${task.id}`,{title: task.title, description: task.description, dueDate: task.dueDate, status: task.status});
-        
+        return editedTask;
     } catch (error) {
         return Promise.reject(error);
     }
@@ -43,7 +43,8 @@ export const deleteExistedTask = async(taskId) => {
     console.log('asdfdf');
     console.log(taskId);
     try {
-        const deleteTask = await API.delete(`/tasks/${taskId}`)
+        const deleteTask = await API.delete(`/tasks/${taskId}`);
+        return deleteTask;
     } catch (error) {
         return Promise.reject(error);
     }

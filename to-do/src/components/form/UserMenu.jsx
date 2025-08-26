@@ -11,7 +11,6 @@ import MenuItem from '@mui/material/MenuItem';
 
 export default function UserMenu({open,anchorEl,handleClose}){
     const {logedIn}=UseUser();
-    console.log(logedIn);
     return(
         <Menu
         anchorEl={anchorEl}

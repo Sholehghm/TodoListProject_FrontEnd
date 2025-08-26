@@ -8,15 +8,20 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { UseTask } from '../../context/TaskContext';
 import { UseDeleteDialog } from '../../context/DeleteDialogContext';
 import { deleteExistedTask } from '../../utils/taskAPI';
+import { UseSnackbar } from '../../context/SnackbarContext';
 
 export default function DeleteDialog() {
     const{currentTask,setCurrentTask,getTasks,today,searchTitle,searchDate}=UseTask();
     const{deleteOpen,deleteHandleClose, route} = UseDeleteDialog();
+    const{setSnackbarOpen,setSnackbarMessage} = UseSnackbar(); 
+
     const id = currentTask.id;
 
     const handleDelete =async (id) => {
         try {
            const deletedTask = await deleteExistedTask(id);
+           setSnackbarMessage(deletedTask.message);
+           setSnackbarOpen(true);
            if(route === 'home'){
             await getTasks();
            }

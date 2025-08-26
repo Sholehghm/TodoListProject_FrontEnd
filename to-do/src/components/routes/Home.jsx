@@ -6,6 +6,7 @@ import EditDialog from "../form/EditDialog";
 import { SearchTaskProvider } from "../../context/SearchTaskContext";
 import { UseTask } from "../../context/TaskContext";
 import DeleteDialog from "../form/DeleteDialoge";
+import SnackbarMessage from "../snackbar/SnackbarMessage";
 
 
 export default function Home() {
@@ -24,6 +25,7 @@ useEffect(()=>{
             </div>
             <EditDialog />
             <DeleteDialog />
+            <SnackbarMessage/>
         </>
 
     )
