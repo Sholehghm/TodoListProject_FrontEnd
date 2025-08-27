@@ -111,7 +111,7 @@ function ResponsiveAppBar() {
 
         </Toolbar>
       </Container>
-      <SideBar pages={pages} state={state} setState={setState} toggleDrawer={toggleDrawer}/>
+      <SideBar pages={pages} routes={routes} state={state} setState={setState} toggleDrawer={toggleDrawer}/>
     </AppBar>
   );
 }
