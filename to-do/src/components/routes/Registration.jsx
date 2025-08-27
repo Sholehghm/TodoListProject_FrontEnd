@@ -7,7 +7,7 @@ import { UseUser } from "../../context/UserContext";
 import Loading from "../loading/Loading";
 
 const RegisterForm = () => {
-    const {email,setEmail,password,setPassword,setCheckLoading} = UseUser();
+    const {email,setEmail,password,setPassword} = UseUser();
     const [confirmPassword, setConfirmPassword] = useState('');
     const [registerError, setRegisterError] = useState('');
     const [registerLoading,setRegisterLoading] = useState(false);
@@ -24,7 +24,7 @@ const RegisterForm = () => {
             setPassword('');
             window.location.href = '/login';
         } catch (error) {
-            console.log(error);
+            
            setRegisterError(error.response.data.error); 
         } finally{
             setRegisterLoading(false);
