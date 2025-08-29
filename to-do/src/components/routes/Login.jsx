@@ -6,6 +6,7 @@ import { login,logedInCheck } from "../../utils/authAPI";
 import Dashboard from "../dashbord/Dashbord";
 import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
+import SnackbarMessage from "../snackbar/SnackbarMessage";
 
 const LoginForm = () => {
     const {email,setEmail,password,setPassword,logedIn,setLogedIn,setCheckLoading} = UseUser();
@@ -22,7 +23,6 @@ const LoginForm = () => {
             setLogedIn(true);
             setEmail(userEmail);
             } catch (error) {
-              console.log(error);
               setLogedIn(false);
             } finally{
                 setCheckLoading(false);
@@ -125,6 +125,7 @@ const LoginForm = () => {
                         </div>
                     </div>
                 </div>
+                <SnackbarMessage/>
             </>
         );
     }

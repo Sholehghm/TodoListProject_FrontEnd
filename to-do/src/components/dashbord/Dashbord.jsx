@@ -3,19 +3,23 @@ import { Button,Typography } from "@mui/material";
 import { logOut } from "../../utils/authAPI";
 import Loading from "../loading/Loading";
 import { UseUser } from "../../context/UserContext";
+import { UseSnackbar } from "../../context/SnackbarContext";
 
 export default function Dashboard (){
     const {email,setEmail,setPassword, setLogedIn,checkLoading} = UseUser();
+    const {setSnackbarOpen,setSnackbarMessage} = UseSnackbar();
     const logingOut =async ()=>{
         try {
            const signout =  await logOut();
            console.log(signout);
+           setLogedIn(false);
+            setEmail('');
+            setPassword('');
         } catch (error) {
-            console.log(error);
+            setSnackbarMessage(err.response.data.error);
+            setSnackbarOpen(true);
         }
-        setLogedIn(false);
-        setEmail('');
-        setPassword('');
+        
     };
 
     return (

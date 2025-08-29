@@ -37,7 +37,6 @@ return(
         <Chip label={status} color="success" className='w-25 !rounded-md'/>
         
         <DeleteIcon onClick={() =>{
-            console.log('asdfsdf');
             deleteHandleOpen();
             setCurrentTask(task);
             }} />

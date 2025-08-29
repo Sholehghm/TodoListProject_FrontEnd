@@ -11,15 +11,16 @@ import LoginForm from './components/routes/Login';
 import { DeleteProvider } from './context/DeleteDialogContext';
 import { UseUser } from './context/UserContext';
 import { SnackbarProvider } from './context/SnackbarContext';
+import { logedInCheck } from './utils/authAPI';
 
 function App() {
-  const {setEmail,setLogedIn} = UseUser();
+  const { setEmail,logedIn, setLogedIn } = UseUser();
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const userData = await logedInCheck();
-         setEmail(userData);
+        setEmail(userData);
         setLogedIn(true);
       } catch (err) {
         setLogedIn(false);
@@ -31,25 +32,25 @@ function App() {
 
   return (
     <div className='bg-[#fdf6e3] bg-[length:100%_2rem] bg-[repeating-linear-gradient(0deg,_#d1cfc7_0px,_#d1cfc7_1px,_#fdf6e3_1px,_#fdf6e3_2rem)]'>
-      <TaskProvider>
-        <EditProvider>
-          <DeleteProvider>
-            <SnackbarProvider>
-            <Router>
-              <Routes>
-                <Route index element={<Home />} />
-                <Route path='/home' element={<Home />} />
-                <Route path='/registration' element={<RegisterForm />} />
-                <Route path='/login' element={<LoginForm />} />
-                <Route path='/today-tasks' element={<TodayTasks />} />
-                <Route path='/Add-task' element={<AddTask />} />
-                <Route path='/search-task' element={<SearchTasks />} />
-              </Routes>
-            </Router>
-            </SnackbarProvider>
-          </DeleteProvider>
-        </EditProvider>
-      </TaskProvider>
+      <SnackbarProvider>
+        <TaskProvider>
+          <EditProvider>
+            <DeleteProvider>
+              <Router>
+                <Routes>
+                  <Route index element={<Home />} />
+                  <Route path='/home' element={<Home />} />
+                  <Route path='/registration' element={<RegisterForm />} />
+                  <Route path='/login' element={<LoginForm />} />
+                  <Route path='/today-tasks' element={<TodayTasks />} />
+                  <Route path='/Add-task' element={<AddTask />} />
+                  <Route path='/search-task' element={<SearchTasks />} />
+                </Routes>
+              </Router>
+            </DeleteProvider>
+          </EditProvider>
+        </TaskProvider>
+      </SnackbarProvider>
 
 
     </div>

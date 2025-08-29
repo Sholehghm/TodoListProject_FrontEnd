@@ -9,7 +9,6 @@ export function SnackbarProvider({children}){
     const[snackbarMessage,setSnackbarMessage]=useState('');
 
     const snackbarHandleClose = () => {
-        console.log('close');
         setSnackbarOpen(false);
     }
 

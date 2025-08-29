@@ -1,6 +1,7 @@
-import React,{createContext, useContext,useEffect,useState,useRef} from "react";
+import React,{createContext, useContext,useState} from "react";
 import { getUserTasks } from "../utils/taskAPI";
 import dayjs from 'dayjs'
+import { UseSnackbar } from "./SnackbarContext";
 const TaskContext = createContext();
 
 export const UseTask = () => useContext(TaskContext);
@@ -13,16 +14,17 @@ const[currentTask,setCurrentTask]=useState('');
 const[searchTitle,setSearchTitle] = useState('');
 const[searchDate,setSearchDate] = useState(null);
 const[loading,setLoading]=useState(false);
+const{setSnackbarOpen,setSnackbarMessage} = UseSnackbar();
 const{Provider} = TaskContext;
 
 const getTasks = async(title,dueDate)=>{
     try {
         setLoading(true);
         const userTasks = await getUserTasks(title,dueDate);
-        console.log(userTasks);
         setTasks(userTasks);
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        setSnackbarMessage(err.response.data.error);
+        setSnackbarOpen(true);
     }finally{
         setLoading(false);
     }
