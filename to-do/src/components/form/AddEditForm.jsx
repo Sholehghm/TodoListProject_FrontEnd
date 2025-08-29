@@ -36,8 +36,9 @@ export default function AddEditForm({ mode = 'add'}) {
             const callAddTask = await addNewTask(newTask);
             setSnackbarMessage(callAddTask.message);
             setSnackbarOpen(true);
-        } catch (error) {
-           console.log(error); 
+        } catch (err) {
+           setSnackbarMessage(err.response.data.error);
+           setSnackbarOpen(true);
         }finally{
             setLoading(false);
         }
@@ -60,8 +61,9 @@ export default function AddEditForm({ mode = 'add'}) {
             setSnackbarMessage(callEditTask.message);
             setSnackbarOpen(true);
             
-        } catch (error) {
-           console.log(error); 
+        } catch (err) {
+            setSnackbarMessage(err.response.data.error);
+            setSnackbarOpen(true);
         }finally{
             setLoading(false);
         }

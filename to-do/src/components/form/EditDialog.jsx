@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { UseTask } from '../../context/TaskContext';
 
 export default function EditDialog(){
-const{currentTask,setCurrentTask}=UseTask();
+const{setCurrentTask}=UseTask();
 const{open,handleClose}=UseEditDialog();
 
     return(

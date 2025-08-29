@@ -10,7 +10,7 @@ export default function SnackbarMessage(){
             vertical: 'top',
             horizontal: 'center', }}
         open={snackbarOpen}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={snackbarHandleClose}
         message={snackbarMessage}
         slotProps={{
