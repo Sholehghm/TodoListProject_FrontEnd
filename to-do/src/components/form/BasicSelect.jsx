@@ -8,12 +8,10 @@ import Select from '@mui/material/Select';
 export default function BasicSelect({value,onChange}) {
   
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, background: 'white' }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">status</InputLabel>
+        <InputLabel >status</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={value}
           label="status"
           onChange={onChange}

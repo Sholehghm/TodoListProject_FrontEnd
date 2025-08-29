@@ -3,14 +3,32 @@ import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
 import { register } from "../../utils/authAPI";
+import { UseUser } from "../../context/UserContext";
+import Loading from "../loading/Loading";
 
 const RegisterForm = () => {
-    const [email, setEmail] =useState('');
-    const [password, setPssword] = useState('');
+    const {email,setEmail,password,setPassword} = UseUser();
     const [confirmPassword, setConfirmPassword] = useState('');
-   
-    const handleSubmit = (e) => {
+    const [registerError, setRegisterError] = useState('');
+    const [registerLoading,setRegisterLoading] = useState(false);
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        if(password !== confirmPassword){
+            setRegisterError("confirm password is not correct!")
+            throw new Error("confirm password is not correct!")}; 
+        try { 
+            setRegisterLoading(true);
+            const newUser = await register(email,password);
+            setEmail('');
+            setPassword('');
+            window.location.href = '/login';
+        } catch (error) {
+            
+           setRegisterError(error.response.data.error); 
+        } finally{
+            setRegisterLoading(false);
+        }
       
     };
 
@@ -45,7 +63,7 @@ const RegisterForm = () => {
                                     required
                                     className="!mb-2"
                                     value={password}
-                                    onChange={(e)=>setPssword(e.target.value)}
+                                    onChange={(e)=>setPassword(e.target.value)}
                                 />
                                 <TextField
                                     label="Confirm Password"
@@ -57,12 +75,12 @@ const RegisterForm = () => {
                                     onChange={(e)=>setConfirmPassword(e.target.value)}
                                 />
                                 </Box>
-                                <Typography variant="body2" color="red" >confirm Password is not correct</Typography>
+                                {registerLoading? <Loading/>:<Typography variant="body2" color="red" >{registerError}</Typography>}
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    color="primary"
                                     fullWidth
+                                    className="!bg-green-700"
                                 >
                                    Sign up
                                 </Button>

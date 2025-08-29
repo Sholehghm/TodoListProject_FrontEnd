@@ -9,7 +9,7 @@ const{setCurrentTask}=UseTask();
 const{open,handleClose}=UseEditDialog();
 
     return(
-        <Dialog onClose={()=>{handleClose();setCurrentTask('')}} open={open} className='!w-full m-0'>
+        <Dialog onClose={()=>{handleClose();setCurrentTask('');}} open={open} className='!w-full m-0'>
         <DialogTitle >Edit Task</DialogTitle>
         <IconButton
           aria-label="close"

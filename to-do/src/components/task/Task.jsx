@@ -6,17 +6,19 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UseEditDialog } from '../../context/EditDialogContext';
 import { UseTask } from '../../context/TaskContext';
+import { UseDeleteDialog } from '../../context/DeleteDialogContext';
+import { useEffect } from 'react';
 
-export default function Task({task,dropDown}){
-const{setCurrentTask,tasks,setTasks}=UseTask();
+export default function Task({task,route,dropDown}){
+const{setCurrentTask}=UseTask();
 const{handleOpen}=UseEditDialog();
-const{title,description,date,status}=task;
+const{title,description,dueDate,status} = task;
+const{deleteHandleOpen,setRoute} = UseDeleteDialog();
 
-const handleDelete = () => {
-    const clonedTasks = [...tasks];
-    const deletedTasks = clonedTasks.filter((item)=>item.id !== task.id);
-    setTasks(deletedTasks);
-} 
+useEffect(() => {
+    setRoute(route);
+  }, [route, setRoute]);
+
 return(
     <div className={dropDown===true?'flex justify-center':'hidden'}>
     <Tooltip title={task?.description}>
@@ -30,11 +32,14 @@ return(
         </Box>
         <Typography >{description.length>40? description.slice(0,40)+'...':description}</Typography>
         <Box className='flex flex-col gap-3'>
-        <Typography>{date}</Typography>
+        <Typography>{dueDate.replace(/-/g,'/')}</Typography>
         <Box className='flex justify-between items-center'>
         <Chip label={status} color="success" className='w-25 !rounded-md'/>
         
-        <DeleteIcon onClick={handleDelete} />
+        <DeleteIcon onClick={() =>{
+            deleteHandleOpen();
+            setCurrentTask(task);
+            }} />
         </Box>
         </Box>
     </Box>

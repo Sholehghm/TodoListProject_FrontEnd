@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Textarea from '@mui/joy/Textarea';
 import BasicDatePicker from "./BasicDatePicker";
@@ -7,48 +7,82 @@ import BasicSelect from "./BasicSelect";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
-import {v4 as uuid4} from "uuid";
 import { UseTask } from "../../context/TaskContext";
 import { UseEditDialog } from "../../context/EditDialogContext";
+import { addNewTask, editExistedTask } from "../../utils/taskAPI";
+import dayjs from "dayjs";
+import Loading from "../loading/Loading";
+import { UseSnackbar } from "../../context/SnackbarContext";
 
 export default function AddEditForm({ mode = 'add'}) {
-    const{currentTask,tasks,setTasks}=UseTask();
+    const{currentTask,setCurrentTask,getTasks}=UseTask();
     const{handleClose}=UseEditDialog();
     const[title,setTitle]=useState(currentTask?.title??'');
     const[description,setDescription]=useState(currentTask?.description??'');
-    const[date,setDate]=useState(null);
+    const[date,setDate]=useState(currentTask.dueDate ? dayjs(currentTask.dueDate) : null);
     const[status,setStatus]=useState(currentTask?.status??'');
+    const[loading,setLoading]=useState(false);
+    const{setSnackbarOpen,setSnackbarMessage} = UseSnackbar(); 
 
-    const addTask = () =>{
+    const addTask = async () =>{
         const newTask = {
-            id: uuid4(),
             title,
             description,
-            date: date ? date.format('YYYY/MM/DD') : '',
+            dueDate: date ? date.format('YYYY-MM-DD') : '',
             status
         }
-    setTasks([...tasks, newTask]);
+        try {
+            setLoading(true);
+            const callAddTask = await addNewTask(newTask);
+            setSnackbarMessage(callAddTask.message);
+            setSnackbarOpen(true);
+        } catch (err) {
+           setSnackbarMessage(err.response.data.error);
+           setSnackbarOpen(true);
+        }finally{
+            setLoading(false);
+        }
     };
-    const editTask = () =>{
-        const clonedTasks =[...tasks];
-        const index = clonedTasks.findIndex((item)=>item.id === currentTask.id);
-        clonedTasks[index] = {...clonedTasks[index],title,description,date: date ? date.format('YYYY/MM/DD') : '',status};
-        setTasks(clonedTasks);
-        handleClose();
+    const editTask = async () =>{
+        const editedTask = {
+            id: currentTask.id,
+            title,
+            description,
+            dueDate: date ? date.format('YYYY-MM-DD') : '',
+            status
+        }
+        
+        try {
+            setLoading(true);
+            const callEditTask = await editExistedTask(editedTask);
+            await getTasks();
+            handleClose();
+            setCurrentTask('');
+            setSnackbarMessage(callEditTask.message);
+            setSnackbarOpen(true);
+            
+        } catch (err) {
+            setSnackbarMessage(err.response.data.error);
+            setSnackbarOpen(true);
+        }finally{
+            setLoading(false);
+        }
     };
     return (
         <Box className='flex-1'>
-            <div className="flex ${mode=='add'?'h-screen'} items-center justify-center">
-            <form className={`${mode=='add'?'w-[50%]':'w-screen'} flex flex-col gap-2 p-4`}>
+            <div className="flex ${mode=='add'?'h-screen'} items-center justify-center ">
+            <form className={`${mode=='add'?'w-[50%]':'w-screen'} flex flex-col gap-2 p-4 `}>
                 <Typography variant="body-1" className="font-bold">
                     {mode === 'add' ? 'Add a new task' : 'Edit task'}
                 </Typography>
                 <TextField
                     label="title"
                     variant="outlined"
-                    className="w-full"
+                    className="w-full bg-white"
                     onChange={(e)=>{setTitle(e.target.value)}}
-                    value={title}/>
+                    value={title}
+                    
+                    />
                 <Textarea
                     size="lg"
                     name="description"
@@ -58,7 +92,8 @@ export default function AddEditForm({ mode = 'add'}) {
                     value={description} />
                 <BasicDatePicker value={date} onChange={setDate} />
                 <BasicSelect value={status} onChange={(e) =>{setStatus(e.target.value)}} />
-                <Button variant="contained" onClick={mode==='add'? addTask:editTask}>
+                {loading? <Loading/>:''}
+                <Button variant="contained" onClick={mode==='add'? addTask:editTask} className="!bg-green-700">
                     <AddIcon />
                     {mode}
                 </Button>
@@ -67,6 +102,7 @@ export default function AddEditForm({ mode = 'add'}) {
 
 
         </div>
+        
         </Box>
         
     )

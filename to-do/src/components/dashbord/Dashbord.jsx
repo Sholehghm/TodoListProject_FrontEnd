@@ -1,18 +1,34 @@
 import React from "react";
 import { Button,Typography } from "@mui/material";
+import { logOut } from "../../utils/authAPI";
+import Loading from "../loading/Loading";
+import { UseUser } from "../../context/UserContext";
+import { UseSnackbar } from "../../context/SnackbarContext";
 
-export default function Dashbord ({email,setEmail,setPassword,setLogedIn}){
-    const logOut = ()=>{
-        setEmail('');
-        setPassword('');
-        setLogedIn(false);
-        localStorage.removeItem('authToken')
+export default function Dashboard (){
+    const {email,setEmail,setPassword, setLogedIn,checkLoading} = UseUser();
+    const {setSnackbarOpen,setSnackbarMessage} = UseSnackbar();
+    const logingOut =async ()=>{
+        try {
+           const signout =  await logOut();
+           console.log(signout);
+           setLogedIn(false);
+            setEmail('');
+            setPassword('');
+        } catch (error) {
+            setSnackbarMessage(err.response.data.error);
+            setSnackbarOpen(true);
+        }
+        
     };
 
     return (
-        <div>
-            <Typography>{email}</Typography>
-            <Button onClick={logOut}>log out</Button>
+        <div className="flex flex-col gap-4 justify-center items-center">
+            {checkLoading?
+             <Loading/>:
+            <Typography variant="h5">{email}</Typography>
+        }
+            <Button variant="contained"  onClick={logingOut} className="!bg-green-700 w-[50%]">log out</Button>
         </div>
     )
 }

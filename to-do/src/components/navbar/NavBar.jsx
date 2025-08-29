@@ -13,30 +13,49 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SideBar from '../sidebar/SideBar';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
+import { useState } from 'react';
+import UserMenu from '../form/UserMenu';
+import { UseTask } from '../../context/TaskContext';
+import { UseUser } from '../../context/UserContext';
 
 
 function ResponsiveAppBar() {
   const pages = ['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task'];
   const routes = ['home', 'login', 'today-tasks', 'add-task', 'search-task'];
 
+  const {logedIn}= UseUser();
+
+  const location = useLocation();
+  const currentLocation = location.pathname;
+  
   
   const [state, setState] = React.useState({
     left: false,
   });
 
+  const [anchorEl,setAnchorEl] = useState(null);
+
+  const handleUserMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleUserMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const userMenuOpen = Boolean(anchorEl);
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
-    }
-
+    };
     setState({ ...state, [anchor]: open });
   };
 
+
   return (
-    <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
-      <Container className='' >
-        <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 '>
+    <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:flex-col sm:min-h-screen justify-start items-start sm:pt-6'>
+      <Container className='!p-0' >
+        <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 !p-0 '>
           <Box className='sm:hidden'>
             <IconButton
               size="large"
@@ -68,17 +87,19 @@ function ResponsiveAppBar() {
           </Typography>
           <Box >
 
-            <IconButton  className='text-left'>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <IconButton  className='text-left' onClick={handleUserMenuOpen}>
+              <Avatar alt="Remy Sharp" className={logedIn? '!bg-green-700':''} />
+             
             </IconButton>
-
+            <UserMenu open={userMenuOpen} anchorEl={anchorEl} handleClose={handleUserMenuClose} />
           </Box>
 
-          <Box className='max-sm:hidden sm:flex-col'>
+          <Box className='max-sm:hidden sm:flex-col w-full'>
             {pages.map((page,index) => (
               <Button
                 key={page}
-                sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left' }}
+                className={currentLocation.includes(routes[index])? '!bg-[#fdf6e3]  w-full':''}
+                sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left', px: 2, '&:hover': {fontWeight: 'bold'}, width:'100%'}}
               >
                 <Link to={`/${routes[index]}`}>
                 {page}
@@ -90,7 +111,7 @@ function ResponsiveAppBar() {
 
         </Toolbar>
       </Container>
-      <SideBar pages={pages} state={state} setState={setState} toggleDrawer={toggleDrawer}/>
+      <SideBar pages={pages} routes={routes} state={state} setState={setState} toggleDrawer={toggleDrawer}/>
     </AppBar>
   );
 }
