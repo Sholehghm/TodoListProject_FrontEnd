@@ -53,7 +53,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:!h-screen sm:flex-col justify-start items-start pt-6'>
+    <AppBar position="static" className='sm:!w-55 !bg-white !text-black sm:flex-col sm:min-h-screen justify-start items-start sm:pt-6'>
       <Container className='!p-0' >
         <Toolbar className='max-sm:flex-row max-sm:justify-between sm:flex-col gap-7 !p-0 '>
           <Box className='sm:hidden'>
