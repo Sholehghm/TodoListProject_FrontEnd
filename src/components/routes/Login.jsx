@@ -90,7 +90,6 @@ const LoginForm = () => {
                                             className="!mb-2"
                                             value={email}
                                             onChange={(e) => {setEmail(e.target.value);
-                                                console.log(email);
                                             }}
                                         />
                                         <TextField

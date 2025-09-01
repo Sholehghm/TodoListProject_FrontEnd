@@ -33,7 +33,7 @@ export const logedInCheck =async () => {
 
 export const logOut = async () => {
     try {
-        const signout = await API.post('/logout',);
+        const signout = await API.get('/logout');
         return signout;
     } catch (error) {
         return Promise.reject(error);

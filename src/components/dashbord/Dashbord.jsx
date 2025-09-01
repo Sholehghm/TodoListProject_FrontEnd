@@ -11,7 +11,6 @@ export default function Dashboard (){
     const logingOut =async ()=>{
         try {
            const signout =  await logOut();
-           console.log(signout);
            setLogedIn(false);
             setEmail('');
             setPassword('');
