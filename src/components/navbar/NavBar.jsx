@@ -23,7 +23,7 @@ import { UseUser } from '../../context/UserContext';
 function ResponsiveAppBar() {
   const pages = ['Home', 'Registration', 'Today tasks', 'Add task', 'Search Task'];
   const routes = ['home', 'login', 'today-tasks', 'add-task', 'search-task'];
-
+  const registerationRoute = [,'registration',,,]
   const {logedIn}= UseUser();
 
   const location = useLocation();
@@ -98,7 +98,8 @@ function ResponsiveAppBar() {
             {pages.map((page,index) => (
               <Button
                 key={page}
-                className={currentLocation.includes(routes[index])? '!bg-[#fdf6e3]  w-full':''}
+                className={currentLocation.includes(routes[index])||currentLocation.includes(registerationRoute[index])? '!bg-[#fdf6e3]  w-full':''}
+                
                 sx={{ my: 2, color: 'black', display: 'block', textAlign: 'left', px: 2, '&:hover': {fontWeight: 'bold'}, width:'100%'}}
               >
                 <Link to={`/${routes[index]}`}>
