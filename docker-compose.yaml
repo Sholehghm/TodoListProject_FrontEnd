@@ -1,0 +1,26 @@
+networks:
+  todo-network:
+    driver: bridge
+    
+services:
+  backend:
+    build: ./Todo_project_backend
+    container_name: todo-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./Todo_project_backend/.env
+    networks:
+      - todo-network
+
+  frontend:
+    build: ./TodoListProject_FrontEnd
+    container_name: todo-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+
+
