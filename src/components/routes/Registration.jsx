@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import ResponsiveAppBar from "../navbar/NavBar";
@@ -11,6 +11,11 @@ const RegisterForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [registerError, setRegisterError] = useState('');
     const [registerLoading,setRegisterLoading] = useState(false);
+
+    useEffect(()=>{ 
+        setEmail('')
+        setPassword('')}
+    ,[]);
 
     const handleSubmit = async(e) => {
         e.preventDefault();

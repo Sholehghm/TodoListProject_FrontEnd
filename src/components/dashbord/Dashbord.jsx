@@ -14,6 +14,7 @@ export default function Dashboard (){
            setLogedIn(false);
             setEmail('');
             setPassword('');
+            window.location.href = '/login';
         } catch (error) {
             setSnackbarMessage(err.response.data.error);
             setSnackbarOpen(true);
